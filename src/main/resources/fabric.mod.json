@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "TexTweaks",
-  "description": "Features involved with things related to textures",
+  "description": "Utilities for high resolution texture packs",
   "authors": [
     "UltimateBoomer"
   ],
