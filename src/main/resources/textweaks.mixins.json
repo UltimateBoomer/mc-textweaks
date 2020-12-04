@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.ultimateboomer.textweaks.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "client": [
+    "SpriteAtlasTextureMixin",
+    "TextureUtilMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

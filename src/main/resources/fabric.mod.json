@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "textweaks",
+  "version": "${version}",
+
+  "name": "TexTweaks",
+  "description": "Features involved with things related to textures",
+  "authors": [
+    "UltimateBoomer"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+
+  "license": "MIT License",
+  "icon": "assets/textweaks/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.ultimateboomer.textweaks.TexTweaks"
+    ],
+    "modmenu": [
+   	  "com.ultimateboomer.textweaks.TexTweaksModMenu"
+    ]
+  },
+  "mixins": [
+    "textweaks.mixins.json"
+  ],
+  "accessWidener": "textweaks.accesswidener",
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.16.x"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
