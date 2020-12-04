@@ -24,7 +24,7 @@ public class NativeImageUtil {
 				newImage.setPixelColor(x * 2, y * 2, pixelColor);
 				newImage.setPixelColor(x * 2 + 1, y * 2, pixelColor);
 				newImage.setPixelColor(x * 2, y * 2 + 1, pixelColor);
-				newImage.setPixelColor(x * 2 + 1, y * 2 + 1, TexTweaks.config.fractal ? 0xFF000000 : pixelColor);
+				newImage.setPixelColor(x * 2 + 1, y * 2 + 1, TexTweaks.config.debugFractal ? 0xFF000000 : pixelColor);
 			}
 		}
 		//MipmapTweaks.LOGGER.info("Upscaled texture " + scale);

@@ -17,7 +17,7 @@ public class TexTweaksConfig implements ConfigData {
 	public int textureResolution = 4;
 	
 	@Tooltip(count = 1)
-	public int maxScale = 6;
+	public int maxScale = 8;
 	
 	public boolean enableMipmapOverride = true;
 	
@@ -31,5 +31,5 @@ public class TexTweaksConfig implements ConfigData {
 	public float lodBias = 0.0f;
 	
 	@Tooltip(count = 2)
-	public boolean fractal = false;
+	public boolean debugFractal = false;
 }
