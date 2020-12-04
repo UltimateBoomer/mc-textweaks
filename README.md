@@ -1,6 +1,5 @@
 # TexTweaks Mod for Minecraft Fabric
 
-<<<<<<< HEAD
 ## Mod Features
 
 ### Upscale lower resolution textures to a higher resolution
@@ -18,13 +17,3 @@
 
 ## Compatibility
  - Compatible with Optifine and shaders
-=======
-## Features
-
- - Upscale lower resolution textures to a higher resolution
- - Set mipmap levels above vanilla's maximum of 4 (requires texture upscaling)
- - Set mipmap LOD bias
- 
-## Compatibility
- - Compatible with Optifine
->>>>>>> 0c9058cbfe77ae4985a40959a6ee3be5816f3d6b
