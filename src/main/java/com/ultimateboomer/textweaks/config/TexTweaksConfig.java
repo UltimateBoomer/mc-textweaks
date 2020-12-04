@@ -25,7 +25,7 @@ public class TexTweaksConfig implements ConfigData {
 	@BoundedDiscrete(min = 0, max = 9)
 	public int maxMipmap = 9;
 	
-	public boolean enableLodBiasOverride = true;
+	public boolean enableLodBiasOverride = false;
 	
 	@Tooltip(count = 3)
 	public float lodBias = 0.0f;
