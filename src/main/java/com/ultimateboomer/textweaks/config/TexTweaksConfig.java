@@ -1,5 +1,8 @@
 package com.ultimateboomer.textweaks.config;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.ultimateboomer.textweaks.TexTweaks;
 
 import me.sargunvohra.mcmods.autoconfig1u.ConfigData;

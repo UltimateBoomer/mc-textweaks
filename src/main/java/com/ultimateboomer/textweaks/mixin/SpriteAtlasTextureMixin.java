@@ -43,18 +43,18 @@ public class SpriteAtlasTextureMixin {
 	// Edit mipmap level value and pass mipmap parameter
 	@ModifyVariable(method = "stitch", at = @At("HEAD"), ordinal = 0)
 	private int onStitch(int mipmapLevel) {
+		if (TexTweaks.config.excludedAtlas.contains(id.toString())) {
+			return mipmapLevel;
+		}
+		
 		if (TexTweaks.config.enableMipmapOverride) {
-			if (mipmapLevel == 0) {
-				mipmapLevel = 0;
-			} else {
+			if (mipmapLevel != 0 || TexTweaks.config.enableUniversalMipmap) {
 				mipmapLevel = TexTweaks.config.maxMipmap;
 			}
 		}
 		
 		if (TexTweaks.config.enableTextureScaling) {
-			if (mipmapLevel == 0) {
-				stitchMipmap.set(false);
-			} else {
+			if (mipmapLevel != 0) {
 				stitchMipmap.set(true);
 			}
 		}
@@ -65,20 +65,21 @@ public class SpriteAtlasTextureMixin {
 	// Change texture size in sprite infos to prepare texture scaling
 	@Inject(method = "Lnet/minecraft/client/texture/SpriteAtlasTexture;loadSprites(Lnet/minecraft/resource/ResourceManager;Ljava/util/Set;)Ljava/util/Collection;", 
 		at = @At("RETURN"))
-	private void onStitchLoadSprites(ResourceManager resourceManager, Set<Identifier> ids, CallbackInfoReturnable<Collection<Sprite.Info>> ci) {
+	private void onLoadSprites(ResourceManager resourceManager, Set<Identifier> ids, CallbackInfoReturnable<Collection<Sprite.Info>> ci) {
 		if (TexTweaks.config.enableTextureScaling) {
 			if (stitchMipmap.get()) {
-				TexTweaks.LOGGER.debug("Scaling {}-atlas", id);
+				TexTweaks.LOGGER.debug("Preparing to scale {}-atlas", id);
+				
 				ci.getReturnValue().forEach(info -> {
 					int w = info.width;
 					int h = info.height;
 					
 					int size = Math.min(w, h);
-					int scale = (1 << TexTweaks.config.textureResolution) / size;
+					int scale = (int) Math.ceil((1 << TexTweaks.config.textureResolution) / (double) size);
 					scale = Math.min(scale, 1 << TexTweaks.config.maxScale);
-					if (scale != 1 << MathHelper.log2(scale)) {
-						scale = 1;
-					}
+//					if (scale != 1 << MathHelper.log2(scale)) {
+//						scale = 1;
+//					}
 					scale = MathHelper.clamp(scale, 1, 1 << Math.max(TexTweaks.config.maxMipmap - 4, 1));
 					info.width = w * scale;
 					info.height = h * scale;
@@ -90,6 +91,12 @@ public class SpriteAtlasTextureMixin {
 		}
 	}
 	
+	@Redirect(method = "stitch",
+		at = @At(value = "INVOKE", target = "Ljava/lang/Integer;lowestOneBit(I)I"))
+	private int onStitchLowestOneBit(int i) {
+		return i;
+	}
+	
 	// Scale NativeImage sprite
 	@Redirect(method = "loadSprite",
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/client/texture/NativeImage;read(Ljava/io/InputStream;)Lnet/minecraft/client/texture/NativeImage;"))
@@ -99,8 +106,13 @@ public class SpriteAtlasTextureMixin {
 			int w = image.getWidth();
 			int h = image.getHeight();
 	        int scale = info.getWidth() / image.getWidth();
-			TexTweaks.LOGGER.debug("Scaled {} {}x {}x{} -> {}x{}", info.getId().toString(), scale, w, h, info.width, info.height);
-			return NativeImageUtil.upscaleImage(image, MathHelper.log2(scale));
+	        if (scale > 1) {
+	        	TexTweaks.LOGGER.debug("Scaled {} {}x {}x{} -> {}x{}", info.getId().toString(), scale, w, h, info.width, info.height);
+				return NativeImageUtil.upscaleImage(image, MathHelper.log2(scale));
+	        } else {
+	        	return image;
+	        }
+			
 		} else {
 			return NativeImage.read(in);
 		}
