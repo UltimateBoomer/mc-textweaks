@@ -19,6 +19,7 @@ public class NativeImageUtil {
 		return upscaleImageFast(image, power);
 	}
 	
+	@Deprecated
 	private static NativeImage upscaleImageRecursive(NativeImage image, int power) {
 		NativeImage newImage = new NativeImage(image.getFormat(), image.getWidth() * 2, image.getHeight() * 2, true);
 		for (int x = 0; x < image.getWidth(); ++x) {

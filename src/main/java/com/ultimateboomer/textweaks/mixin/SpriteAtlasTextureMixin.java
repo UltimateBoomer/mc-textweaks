@@ -40,7 +40,7 @@ public class SpriteAtlasTextureMixin {
 	@Shadow
 	private Collection<Sprite.Info> loadSprites(ResourceManager resourceManager, Set<Identifier> ids) { return null; }
 	
-	// Edit mipmap level value and pass mipmap parameter
+	// Modify mipmap level value and pass mipmap parameter
 	@ModifyVariable(method = "stitch", at = @At("HEAD"), ordinal = 0)
 	private int onStitch(int mipmapLevel) {
 		if (TexTweaks.config.excludedAtlas.contains(id.toString())) {
@@ -91,6 +91,8 @@ public class SpriteAtlasTextureMixin {
 		}
 	}
 	
+	// Fix mipmapping of non power of 2 textures
+	// May cause problems
 	@Redirect(method = "stitch",
 		at = @At(value = "INVOKE", target = "Ljava/lang/Integer;lowestOneBit(I)I"))
 	private int onStitchLowestOneBit(int i) {
