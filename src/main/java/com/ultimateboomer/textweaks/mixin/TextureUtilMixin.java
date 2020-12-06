@@ -28,9 +28,9 @@ public class TextureUtilMixin {
 	@Redirect(method = "allocate(Lnet/minecraft/client/texture/NativeImage$GLFormat;IIII)V",
 		at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/GlStateManager;texParameter(IIF)V"))
 	private static void setLodBias(int target, int pname, float param) {
-		if (TexTweaks.config.enableLodBiasOverride) {
+		if (TexTweaks.config.lodBias.enable) {
 			if (target == GL11.GL_TEXTURE_2D && pname == GL14.GL_TEXTURE_LOD_BIAS) {
-				GlStateManager.texParameter(target, pname, TexTweaks.config.lodBias);
+				GlStateManager.texParameter(target, pname, TexTweaks.config.lodBias.value);
 			}
 		}
 	}

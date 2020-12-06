@@ -8,33 +8,63 @@ import com.ultimateboomer.textweaks.TexTweaks;
 import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry.BoundedDiscrete;
+import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry.Gui.CollapsibleObject;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry.Gui.Tooltip;
 
 @Config(name = TexTweaks.MOD_ID)
 public class TexTweaksConfig implements ConfigData {
 	@Tooltip
-	public boolean enableTextureScaling = true;
+	@CollapsibleObject
+	public TextureScaling textureScaling= new TextureScaling();
 	
-	@Tooltip(count = 2)
-	@BoundedDiscrete(min = 1, max = 9)
-	public int textureResolution = 4;
+	@Tooltip
+	@CollapsibleObject
+	public BetterMipmaps betterMipmaps = new BetterMipmaps();
 	
-	@Tooltip(count = 1)
-	public int maxScale = 8;
+	@Tooltip
+	@CollapsibleObject
+	public LodBias lodBias = new LodBias();
 	
-	public List<String> excludedAtlas = Arrays.asList("minecraft:textures/atlas/particles.png",
-		"minecraft:textures/atlas/mob_effects.png");
+	@Tooltip
+	@CollapsibleObject
+	public Other other = new Other();
 	
-	public boolean enableMipmapOverride = true;
+	public static class TextureScaling implements ConfigData {
+		public boolean enable = true;
+		
+		@Tooltip(count = 2)
+		@BoundedDiscrete(min = 1, max = 9)
+		public int resolution = 4;
+		
+		@Tooltip(count = 1)
+		public int maxScale = 8;
+		
+	}
 	
-	@Tooltip(count = 2)
-	@BoundedDiscrete(min = 0, max = 9)
-	public int maxMipmap = 9;
+	public static class BetterMipmaps implements ConfigData {
+		public boolean enable = true;
+		
+		@Tooltip(count = 3)
+		@BoundedDiscrete(min = 0, max = 9)
+		public int level = 9;
+		
+		@Tooltip
+		public boolean universalMipmap = false;
+	}
 	
-	public boolean enableUniversalMipmap = true;
+	public static class LodBias implements ConfigData {
+		public boolean enable = false;
+		
+		@Tooltip(count = 2)
+		public float value = 0.0f;
+	}
 	
-	public boolean enableLodBiasOverride = false;
-	
-	@Tooltip(count = 3)
-	public float lodBias = 0.0f;
+	public static class Other implements ConfigData {
+		@Tooltip
+		public List<String> excludedAtlas = Arrays.asList("minecraft:textures/atlas/particles.png",
+			"minecraft:textures/atlas/mob_effects.png");
+		
+		@Tooltip
+		public boolean parallelPreScaling = false;
+	}
 }
