@@ -17,8 +17,5 @@
 	"text.autoconfig.textweaks.option.lodBias": "LOD Bias",
 	"text.autoconfig.textweaks.option.lodBias.@Tooltip[0]": "Set the detail of distant textures",
 	"text.autoconfig.textweaks.option.lodBias.@Tooltip[1]": "<0: More detail, more aliasing",
-	"text.autoconfig.textweaks.option.lodBias.@Tooltip[2]": ">0: Less detail, less aliasing",
-	"text.autoconfig.textweaks.option.debugFractal": "Debug Fractal",
-	"text.autoconfig.textweaks.option.debugFractal.@Tooltip[0]": "DEBUG OPTION",
-	"text.autoconfig.textweaks.option.debugFractal.@Tooltip[1]": "Removes a pixel during each scaling step which creates a fractal like effect on scaled textures"
+	"text.autoconfig.textweaks.option.lodBias.@Tooltip[2]": ">0: Less detail, less aliasing"
 }

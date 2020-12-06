@@ -27,7 +27,7 @@ import net.minecraft.util.math.MathHelper;
 
 @Mixin(SpriteAtlasTexture.class)
 public class SpriteAtlasTextureMixin {
-	private static final ThreadLocal<Boolean> stitchMipmap = new ThreadLocal<Boolean>();
+	private static final ThreadLocal<Boolean> stitchMipmap = ThreadLocal.withInitial(() -> false);
 	
 	@Shadow
 	@Final

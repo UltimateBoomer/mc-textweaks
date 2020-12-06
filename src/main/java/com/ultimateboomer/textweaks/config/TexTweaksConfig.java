@@ -19,17 +19,19 @@ public class TexTweaksConfig implements ConfigData {
 	@Tooltip(count = 1)
 	public int maxScale = 8;
 	
+	public List<String> excludedAtlas = Arrays.asList("minecraft:textures/atlas/particles.png",
+		"minecraft:textures/atlas/mob_effects.png");
+	
 	public boolean enableMipmapOverride = true;
 	
 	@Tooltip(count = 2)
 	@BoundedDiscrete(min = 0, max = 9)
 	public int maxMipmap = 9;
 	
+	public boolean enableUniversalMipmap = true;
+	
 	public boolean enableLodBiasOverride = false;
 	
 	@Tooltip(count = 3)
 	public float lodBias = 0.0f;
-	
-	@Tooltip(count = 2)
-	public boolean debugFractal = false;
 }
