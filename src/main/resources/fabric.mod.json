@@ -16,7 +16,7 @@
   "license": "MIT License",
   "icon": "assets/textweaks/icon.png",
 
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "client": [
       "com.ultimateboomer.textweaks.TexTweaks"
