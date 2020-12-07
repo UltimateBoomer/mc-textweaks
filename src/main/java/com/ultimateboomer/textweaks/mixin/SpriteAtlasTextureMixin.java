@@ -33,8 +33,6 @@ import net.minecraft.util.math.MathHelper;
 public class SpriteAtlasTextureMixin {
 	private static final ThreadLocal<Boolean> STITCH_MIPMAP = ThreadLocal.withInitial(() -> false);
 	
-	private static final int PARTITION_THRESHOLD = 25;
-	
 	private static final Consumer<Sprite.Info> PRESCALE_SPRITE = info -> {
 		int w = info.width;
 		int h = info.height;
@@ -46,8 +44,6 @@ public class SpriteAtlasTextureMixin {
 		
 		info.width = w * scale;
 		info.height = h * scale;
-		
-		TexTweaks.LOGGER.debug("Pre-scaled {} {}x {}x{} -> {}x{}", info.getId().toString(), scale, w, h, info.width, info.height);
 	};
 	
 	@Shadow
@@ -70,7 +66,7 @@ public class SpriteAtlasTextureMixin {
 		
 		if (TexTweaks.config.betterMipmaps.enable) {
 			if (mipmapLevel != 0 || TexTweaks.config.betterMipmaps.universalMipmap) {
-				mipmapLevel = TexTweaks.config.betterMipmaps.level;
+				mipmapLevel = Math.min(TexTweaks.config.betterMipmaps.level, TexTweaks.config.textureScaling.resolution);
 			}
 		}
 		
@@ -93,6 +89,8 @@ public class SpriteAtlasTextureMixin {
 				Collection<Sprite.Info> returnValue = ci.getReturnValue();
 				
 				if (TexTweaks.config.other.parallelPreScaling) {
+					TexTweaks.LOGGER.debug("Parallel pre-scaling is enabled");
+					
 					List<CompletableFuture<Void>> tasks = Lists.newArrayList();
 					returnValue.forEach(info -> {
 						tasks.add(CompletableFuture.runAsync(() -> PRESCALE_SPRITE.accept(info)));
@@ -102,6 +100,8 @@ public class SpriteAtlasTextureMixin {
 				} else {
 					returnValue.forEach(PRESCALE_SPRITE);
 				}
+				
+				TexTweaks.LOGGER.debug("Pre-scaled {}-atlas", id);
 			} else {
 				TexTweaks.LOGGER.debug("Skipped scaling {}-atlas because it is not mipmapped", id);
 			}
@@ -126,8 +126,8 @@ public class SpriteAtlasTextureMixin {
 			int h = image.getHeight();
 	        int scale = info.getWidth() / image.getWidth();
 	        if (scale > 1) {
-	        	TexTweaks.LOGGER.debug("Scaled {} {}x {}x{} -> {}x{}", info.getId().toString(), scale, w, h, info.width, info.height);
-				return NativeImageUtil.upscaleImage(image, MathHelper.log2(scale));
+	        	TexTweaks.LOGGER.debug("Scale {} {}x {}x{} -> {}x{}", info.getId().toString(), scale, w, h, info.width, info.height);
+				return NativeImageUtil.upscaleImageFast(image, MathHelper.log2(scale));
 	        } else {
 	        	return image;
 	        }
