@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ForkJoinPool;
 import java.util.function.Consumer;
 
 import org.apache.logging.log4j.Logger;
@@ -19,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.ultimateboomer.textweaks.TexTweaks;
 import com.ultimateboomer.textweaks.util.NativeImageUtil;
@@ -29,7 +27,6 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 
 @Mixin(SpriteAtlasTexture.class)
@@ -95,15 +92,10 @@ public class SpriteAtlasTextureMixin {
 				TexTweaks.LOGGER.debug("Preparing to scale {}-atlas", id);
 				Collection<Sprite.Info> returnValue = ci.getReturnValue();
 				
-				if (TexTweaks.config.other.parallelPreScaling && returnValue.size() > PARTITION_THRESHOLD) {
-					int threads = ((ForkJoinPool) Util.getMainWorkerExecutor()).getParallelism();
-					
+				if (TexTweaks.config.other.parallelPreScaling) {
 					List<CompletableFuture<Void>> tasks = Lists.newArrayList();
-					Iterable<List<Sprite.Info>> infosPartitioned = Iterables.partition(returnValue, threads);;
-					infosPartitioned.forEach(infoList -> {
-						tasks.add(CompletableFuture.runAsync(() -> {
-							infoList.forEach(info -> PRESCALE_SPRITE.accept(info));
-						}, Util.getMainWorkerExecutor()));
+					returnValue.forEach(info -> {
+						tasks.add(CompletableFuture.runAsync(() -> PRESCALE_SPRITE.accept(info)));
 					});
 					
 					CompletableFuture.allOf(tasks.toArray(new CompletableFuture[0])).join();

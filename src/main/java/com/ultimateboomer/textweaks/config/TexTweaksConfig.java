@@ -32,7 +32,7 @@ public class TexTweaksConfig implements ConfigData {
 	public static class TextureScaling implements ConfigData {
 		public boolean enable = true;
 		
-		@Tooltip(count = 2)
+		@Tooltip
 		@BoundedDiscrete(min = 1, max = 9)
 		public int resolution = 4;
 		
@@ -65,6 +65,6 @@ public class TexTweaksConfig implements ConfigData {
 			"minecraft:textures/atlas/mob_effects.png");
 		
 		@Tooltip
-		public boolean parallelPreScaling = false;
+		public boolean parallelPreScaling = true;
 	}
 }
