@@ -30,5 +30,7 @@
 	"text.autoconfig.textweaks.option.other.excludedAtlas": "Excluded Atlas",
 	"text.autoconfig.textweaks.option.other.excludedAtlas.@Tooltip": "Atlases to be excluded from scaling",
 	"text.autoconfig.textweaks.option.other.parallelPreScaling": "Parallel Pre-scaling",
-	"text.autoconfig.textweaks.option.other.parallelPreScaling.@Tooltip": "Can marginally improve scaling performance"
+	"text.autoconfig.textweaks.option.other.parallelPreScaling.@Tooltip": "Can marginally improve scaling performance",
+
+	"textweaks.command.atlas": "Sprite Atlas Details"
 }

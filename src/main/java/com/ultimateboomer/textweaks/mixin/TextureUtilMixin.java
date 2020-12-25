@@ -1,16 +1,14 @@
 package com.ultimateboomer.textweaks.mixin;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.ultimateboomer.textweaks.TexTweaks;
+import net.minecraft.client.texture.TextureUtil;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
-
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.ultimateboomer.textweaks.TexTweaks;
-
-import net.minecraft.client.texture.TextureUtil;
 
 @Mixin(TextureUtil.class)
 public class TextureUtilMixin {
