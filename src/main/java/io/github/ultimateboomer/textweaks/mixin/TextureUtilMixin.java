@@ -1,7 +1,7 @@
-package com.ultimateboomer.textweaks.mixin;
+package io.github.ultimateboomer.textweaks.mixin;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import com.ultimateboomer.textweaks.TexTweaks;
+import io.github.ultimateboomer.textweaks.TexTweaks;
 import net.minecraft.client.texture.TextureUtil;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;

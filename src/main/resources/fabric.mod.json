@@ -19,10 +19,10 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "com.ultimateboomer.textweaks.TexTweaks"
+      "io.github.ultimateboomer.textweaks.TexTweaks"
     ],
     "modmenu": [
-   	  "com.ultimateboomer.textweaks.TexTweaksModMenu"
+   	  "io.github.ultimateboomer.textweaks.TexTweaksModMenu"
     ]
   },
   "mixins": [

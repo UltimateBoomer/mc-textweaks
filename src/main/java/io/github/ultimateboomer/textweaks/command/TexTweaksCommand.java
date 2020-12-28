@@ -1,4 +1,4 @@
-package com.ultimateboomer.textweaks.command;
+package io.github.ultimateboomer.textweaks.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -21,7 +21,8 @@ public class TexTweaksCommand {
         source.sendFeedback(new TranslatableText("textweaks.command.atlas"), false);
         mc.getBakedModelManager().atlasManager.atlases.forEach((id, texture) -> {
             int mipLevel = texture.sprites.values().toArray(new Sprite[0])[0].images.length - 1;
-            source.sendFeedback(new LiteralText(String.format("Atlas: %s Level: %s", id.toString(), mipLevel)), false);
+            source.sendFeedback(new LiteralText(String.format("Atlas: %s", id.toString())), false);
+            source.sendFeedback(new LiteralText(String.format(" - Mipmap Level: %s", mipLevel)), false);
         });
 
         return 1;

@@ -1,6 +1,6 @@
-package com.ultimateboomer.textweaks.config;
+package io.github.ultimateboomer.textweaks.config;
 
-import com.ultimateboomer.textweaks.TexTweaks;
+import io.github.ultimateboomer.textweaks.TexTweaks;
 import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry.BoundedDiscrete;

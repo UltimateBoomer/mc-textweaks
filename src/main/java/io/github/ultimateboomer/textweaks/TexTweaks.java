@@ -1,7 +1,7 @@
-package com.ultimateboomer.textweaks;
+package io.github.ultimateboomer.textweaks;
 
-import com.ultimateboomer.textweaks.command.TexTweaksCommand;
-import com.ultimateboomer.textweaks.config.TexTweaksConfig;
+import io.github.ultimateboomer.textweaks.command.TexTweaksCommand;
+import io.github.ultimateboomer.textweaks.config.TexTweaksConfig;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
