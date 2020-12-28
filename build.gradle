@@ -32,6 +32,8 @@ dependencies {
 	include "me.sargunvohra.mcmods:autoconfig1u:${project.auto_config_version}"
 	
 	modImplementation("io.github.prospector:modmenu:${project.mod_menu_version}")
+
+	modImplementation "io.github.ultimateboomer:smoothboot-fabric:${project.smoothboot_version}"
 }
 
 processResources {

@@ -1,8 +1,9 @@
-package com.ultimateboomer.textweaks.mixin;
+package io.github.ultimateboomer.textweaks.mixin;
 
 import com.google.common.collect.Lists;
-import com.ultimateboomer.textweaks.TexTweaks;
-import com.ultimateboomer.textweaks.util.NativeImageUtil;
+import io.github.ultimateboomer.textweaks.TexTweaks;
+import io.github.ultimateboomer.textweaks.util.NativeImageUtil;
+import net.minecraft.client.texture.AbstractTexture;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
@@ -23,12 +24,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 @Mixin(SpriteAtlasTexture.class)
-public class SpriteAtlasTextureMixin {
+public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 	private static final ThreadLocal<Boolean> STITCH_MIPMAP = ThreadLocal.withInitial(() -> false);
 	
 	private static final Consumer<Sprite.Info> PRESCALE_SPRITE = info -> {
@@ -43,27 +45,33 @@ public class SpriteAtlasTextureMixin {
 		info.width = w * scale;
 		info.height = h * scale;
 	};
-	
+
+	@Shadow
+	@Final
+	private Map<Identifier, Sprite> sprites;
+
 	@Shadow
 	@Final
 	private static Logger LOGGER;
-	
+
 	@Shadow
 	@Final
 	private Identifier id;
-	
+
 	@Shadow
 	private Collection<Sprite.Info> loadSprites(ResourceManager resourceManager, Set<Identifier> ids) { return null; }
 	
 	// Modify mipmap level value and pass mipmap parameter
 	@ModifyVariable(method = "stitch", at = @At("HEAD"), ordinal = 0)
 	private int onStitch(int mipmapLevel) {
+		this.bilinear = true;
 		if (TexTweaks.config.other.excludedAtlas.contains(id.toString())) {
 			return mipmapLevel;
 		}
 		
 		if (TexTweaks.config.betterMipmaps.enable) {
 			if (mipmapLevel != 0 || TexTweaks.config.betterMipmaps.universalMipmap) {
+
 				mipmapLevel = Math.min(TexTweaks.config.betterMipmaps.level, TexTweaks.config.textureScaling.resolution);
 			}
 		}
@@ -133,6 +141,31 @@ public class SpriteAtlasTextureMixin {
 		} else {
 			return NativeImage.read(in);
 		}
-		
 	}
+
+//	@Overwrite
+//	public void applyTextureFilter(SpriteAtlasTexture.Data data) {
+//		TexTweaks.LOGGER.debug(data);
+//		this.setFilter(true, data.maxLevel > 0);
+//	}
+
+//	@Override
+//	public void setFilter(boolean bilinear, boolean mipmap) {
+//		this.bilinear = bilinear;
+//		this.mipmap = mipmap;
+//		int k;
+//		short l;
+//		if (bilinear) {
+//			k = mipmap ? GL11.GL_LINEAR_MIPMAP_LINEAR : GL11.GL_LINEAR;
+//			l = GL11.GL_NEAREST;
+//		} else {
+//			k = mipmap ? GL11.GL_NEAREST_MIPMAP_LINEAR : GL11.GL_NEAREST;
+//			l = GL11.GL_NEAREST;
+//		}
+//		GlStateManager.texParameter();
+//		GlStateManager.texParameter(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, k);
+//		GlStateManager.texParameter(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, l);
+//	}
+
+
 }

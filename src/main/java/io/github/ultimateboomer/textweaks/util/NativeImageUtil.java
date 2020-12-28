@@ -1,4 +1,4 @@
-package com.ultimateboomer.textweaks.util;
+package io.github.ultimateboomer.textweaks.util;
 
 import net.minecraft.client.texture.NativeImage;
 
