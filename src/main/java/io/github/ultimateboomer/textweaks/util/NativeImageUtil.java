@@ -11,6 +11,7 @@ public class NativeImageUtil {
 				newImage.fillRect(x * scale, y * scale, scale, scale, image.getPixelColor(x, y));
 			}
 		}
+		image.close();
 		return newImage;
 	}
 }

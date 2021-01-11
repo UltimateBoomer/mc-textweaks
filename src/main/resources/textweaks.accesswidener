@@ -14,3 +14,4 @@ accessible field net/minecraft/client/render/model/SpriteAtlasManager atlases Lj
 accessible field net/minecraft/client/texture/SpriteAtlasTexture sprites Ljava/util/Map;
 
 accessible field net/minecraft/client/texture/SpriteAtlasTexture$Data maxLevel I
+accessible field net/minecraft/client/texture/SpriteAtlasTexture$Data sprites Ljava/util/List;

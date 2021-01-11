@@ -9,6 +9,7 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Final;
@@ -31,7 +32,7 @@ import java.util.function.Consumer;
 
 @Mixin(SpriteAtlasTexture.class)
 public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
-	private static final ThreadLocal<Boolean> STITCH_MIPMAP = ThreadLocal.withInitial(() -> false);
+	private static final ThreadLocal<Boolean> SCALE_TEX = ThreadLocal.withInitial(() -> false);
 	
 	private static final Consumer<Sprite.Info> PRESCALE_SPRITE = info -> {
 		int w = info.width;
@@ -44,6 +45,9 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 		
 		info.width = w * scale;
 		info.height = h * scale;
+
+		//TexTweaks.LOGGER.debug("Pre-scale {} {}x {}x{} -> {}x{}", info.getId().toString(), scale, w, h, info.width, info.height);
+
 	};
 
 	@Shadow
@@ -64,33 +68,41 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 	// Modify mipmap level value and pass mipmap parameter
 	@ModifyVariable(method = "stitch", at = @At("HEAD"), ordinal = 0)
 	private int onStitch(int mipmapLevel) {
-		this.bilinear = true;
+//		this.bilinear = true;
 		if (TexTweaks.config.other.excludedAtlas.contains(id.toString())) {
+			TexTweaks.LOGGER.debug("Skipped {}-atlas: excluded", id.toString());
+			SCALE_TEX.set(false);
 			return mipmapLevel;
 		}
 		
 		if (TexTweaks.config.betterMipmaps.enable) {
 			if (mipmapLevel != 0 || TexTweaks.config.betterMipmaps.universalMipmap) {
-
 				mipmapLevel = Math.min(TexTweaks.config.betterMipmaps.level, TexTweaks.config.textureScaling.resolution);
 			}
 		}
 		
 		if (TexTweaks.config.textureScaling.enable) {
 			if (mipmapLevel != 0) {
-				STITCH_MIPMAP.set(true);
+				SCALE_TEX.set(true);
 			}
 		}
 		
 		return mipmapLevel;
 	}
+
+//	@Inject(method = "stitch", at = @At("RETURN"))
+//	private void onStitch2(CallbackInfoReturnable<SpriteAtlasTexture.Data> ci) {
+//		ci.getReturnValue().sprites.forEach(sprite -> {
+//			TexTweaks.LOGGER.debug("Test " + sprite.getFrameCount());
+//		});
+//	}
 	
 	// Change texture size in sprite infos to prepare texture scaling
 	@Inject(method = "Lnet/minecraft/client/texture/SpriteAtlasTexture;loadSprites(Lnet/minecraft/resource/ResourceManager;Ljava/util/Set;)Ljava/util/Collection;", 
 		at = @At("RETURN"))
 	private void onLoadSprites(ResourceManager resourceManager, Set<Identifier> ids, CallbackInfoReturnable<Collection<Sprite.Info>> ci) {
 		if (TexTweaks.config.textureScaling.enable) {
-			if (STITCH_MIPMAP.get()) {
+			if (SCALE_TEX.get()) {
 				TexTweaks.LOGGER.debug("Preparing to scale {}-atlas", id);
 				Collection<Sprite.Info> returnValue = ci.getReturnValue();
 				
@@ -99,7 +111,7 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 					
 					List<CompletableFuture<Void>> tasks = Lists.newArrayList();
 					returnValue.forEach(info -> {
-						tasks.add(CompletableFuture.runAsync(() -> PRESCALE_SPRITE.accept(info)));
+						tasks.add(CompletableFuture.runAsync(() -> PRESCALE_SPRITE.accept(info), Util.getMainWorkerExecutor()));
 					});
 					
 					CompletableFuture.allOf(tasks.toArray(new CompletableFuture[0])).join();
@@ -109,7 +121,7 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 				
 				TexTweaks.LOGGER.debug("Pre-scaled {}-atlas", id);
 			} else {
-				TexTweaks.LOGGER.debug("Skipped scaling {}-atlas because it is not mipmapped", id);
+				TexTweaks.LOGGER.debug("Skipped {}-atlas: not mipmapped", id);
 			}
 		}
 	}
@@ -126,7 +138,7 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 	@Redirect(method = "loadSprite",
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/client/texture/NativeImage;read(Ljava/io/InputStream;)Lnet/minecraft/client/texture/NativeImage;"))
 	private NativeImage onReadSprite(InputStream in, ResourceManager container, Sprite.Info info, int atlasWidth, int atlasHeight, int maxLevel, int x, int y) throws IOException {
-		if (TexTweaks.config.textureScaling.enable) {
+		if (TexTweaks.config.textureScaling.enable && maxLevel > 1) {
 			NativeImage image = NativeImage.read(in);
 			int w = image.getWidth();
 			int h = image.getHeight();
