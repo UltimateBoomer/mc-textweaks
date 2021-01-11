@@ -9,11 +9,11 @@
     "UltimateBoomer"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/textweaks",
+    "sources": "https://github.com/UltimateBoomer/mc-textweaks"
   },
 
-  "license": "MIT License",
+  "license": "MIT",
   "icon": "assets/textweaks/icon.png",
 
   "environment": "client",
