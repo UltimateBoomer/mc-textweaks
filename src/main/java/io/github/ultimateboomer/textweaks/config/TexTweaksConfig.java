@@ -37,7 +37,9 @@ public class TexTweaksConfig implements ConfigData {
 		
 		@Tooltip
 		public int maxScale = 8;
-		
+
+		@Tooltip
+		public boolean downscale = false;
 	}
 	
 	public static class BetterMipmaps implements ConfigData {
