@@ -40,6 +40,13 @@ public class TexTweaksConfig implements ConfigData {
 
 		@Tooltip
 		public boolean downscale = false;
+
+		@Tooltip
+		public DownscaleAlgorithm downscaleAlgorithm = DownscaleAlgorithm.NEAREST;
+
+		public enum DownscaleAlgorithm {
+			NEAREST, LINEAR;
+		}
 	}
 	
 	public static class BetterMipmaps implements ConfigData {
