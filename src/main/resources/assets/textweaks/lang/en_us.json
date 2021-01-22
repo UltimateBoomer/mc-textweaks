@@ -1,5 +1,5 @@
 {
-	"text.autoconfig.textweaks.title": "TexTweaks - Reload textures to apply effects",
+	"text.autoconfig.textweaks.title": "TexTweaks - \u00a7lReload textures (F3+T) to apply effects\u00a7r",
 	"text.autoconfig.textweaks.option.textureScaling": "Texture Scaling",
 	"text.autoconfig.textweaks.option.textureScaling.@Tooltip": "Upscale lower resolution textures, required for Better Mipmaps",
 	"text.autoconfig.textweaks.option.textureScaling.enable": "Enable",
@@ -7,6 +7,12 @@
 	"text.autoconfig.textweaks.option.textureScaling.resolution.@Tooltip": "In powers of 2 (4 = 16x, 6 = 64x, 8 = 256x etc.)",
 	"text.autoconfig.textweaks.option.textureScaling.maxScale": "Max Scale",
 	"text.autoconfig.textweaks.option.textureScaling.maxScale.@Tooltip": "Cap maximum scaling power in case something breaks",
+	"text.autoconfig.textweaks.option.textureScaling.downscale": "Enable Downscale Texture",
+	"text.autoconfig.textweaks.option.textureScaling.downscale.@Tooltip": "Downscale higher resolution textures to this resolution",
+	"text.autoconfig.textweaks.option.textureScaling.downscaleAlgorithm": "Downscale Algorithm",
+	"text.autoconfig.textweaks.option.textureScaling.downscaleAlgorithm.@Tooltip[0]": "Select downscaling algorithm",
+	"text.autoconfig.textweaks.option.textureScaling.downscaleAlgorithm.@Tooltip[1]": "NEAREST- Use top-left pixel, sharper",
+	"text.autoconfig.textweaks.option.textureScaling.downscaleAlgorithm.@Tooltip[2]": "LINEAR - Average multiple pixels, softer",
 	
 	"text.autoconfig.textweaks.option.betterMipmaps": "Better Mipmaps",
 	"text.autoconfig.textweaks.option.betterMipmaps.@Tooltip": "Set mipmap level above 4",

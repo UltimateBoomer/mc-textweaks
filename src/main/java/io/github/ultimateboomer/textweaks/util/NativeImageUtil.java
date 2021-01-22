@@ -14,13 +14,14 @@ public class NativeImageUtil {
 		} else if (power > 0) {
 			return upscaleImageNearest(image, power);
 		} else {
-			if (TexTweaks.config.textureScaling.downscaleAlgorithm ==
-					TexTweaksConfig.TextureScaling.DownscaleAlgorithm.NEAREST) {
-				return downscaleImageNearest(image, -power);
-			} else {
-				return downscaleImageLinear(image, -power);
+			switch (TexTweaks.config.textureScaling.downscaleAlgorithm) {
+				case NEAREST:
+					return downscaleImageNearest(image, -power);
+				case LINEAR:
+					return downscaleImageLinear(image, -power);
 			}
 		}
+		return null;
 	}
 
 	public static NativeImage upscaleImageNearest(NativeImage image, int power) {
