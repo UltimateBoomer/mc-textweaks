@@ -43,7 +43,7 @@ public class TexTweaksConfig implements ConfigData {
 
 		@ConfigEntry.Gui.Tooltip(count = 3)
 		@ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
-		public DownscaleAlgorithm downscaleAlgorithm = DownscaleAlgorithm.NEAREST;
+		public DownscaleAlgorithm downscaleAlgorithm = DownscaleAlgorithm.LINEAR;
 
 		public enum DownscaleAlgorithm {
 			NEAREST, LINEAR;

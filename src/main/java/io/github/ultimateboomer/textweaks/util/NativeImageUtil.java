@@ -8,6 +8,13 @@ import net.minecraft.util.math.MathHelper;
 import java.nio.ByteBuffer;
 
 public class NativeImageUtil {
+	/**
+	 * Scale NativeImage by a power of 2
+	 *
+	 * @param image input image
+	 * @param power scaling power
+	 * @return
+	 */
 	public static NativeImage scaleImage(NativeImage image, int power) {
 		if (power == 0) {
 			return image;

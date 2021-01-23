@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(TextureStitcher.class)
 public class TextureStitcherHolderMixin {
     /**
-     * Reduce atlas size if mipmap level is set higher
+     * Reduce atlas size if mipmap level is set higher than necessary
      */
     @Redirect(method = "add", at = @At(value = "NEW",
             target = "net/minecraft/client/texture/TextureStitcher$Holder"))

@@ -83,8 +83,8 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 		}
 		SCALE_MAP.put(info.getId().toString(), (int) (Math.log(scale) / Math.log(2)));
 
-		TexTweaks.LOGGER.debug("Pre-scale {} {}x {}x{} -> {}x{} A{}x{}", info.getId().toString(), scale, w, h,
-				info.width, info.height, info.animationData.getWidth(-1), info.animationData.getHeight(-1));
+//		TexTweaks.LOGGER.debug("Pre-scale {} {}x {}x{} -> {}x{} A{}x{}", info.getId().toString(), scale, w, h,
+//				info.width, info.height, info.animationData.getWidth(-1), info.animationData.getHeight(-1));
 
 	};
 
@@ -102,11 +102,12 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 
 	@Shadow
 	private Collection<Sprite.Info> loadSprites(ResourceManager resourceManager, Set<Identifier> ids) { return null; }
-	
-	// Modify mipmap level value and pass mipmap parameter
+
+	/**
+	 * Modify mipmap level value and pass mipmap parameter
+	 */
 	@ModifyVariable(method = "stitch", at = @At("HEAD"), ordinal = 0)
 	private int onStitch(int mipmapLevel) {
-//		this.bilinear = true;
 		if (TexTweaks.config.other.excludedAtlas.contains(id.toString())) {
 			TexTweaks.LOGGER.debug("Skipped {}-atlas: excluded", id.toString());
 			SCALE_TEX.set(false);
@@ -130,32 +131,9 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 		return mipmapLevel;
 	}
 
-//	@Inject(method = "stitch", at = @At(value = "INVOKE",
-//			target = "Lnet/minecraft/client/texture/TextureStitcher;add(Lnet/minecraft/client/texture/Sprite$Info;)V"),
-//			locals = LocalCapture.CAPTURE_FAILEXCEPTION)
-//	private void onStitch2(ResourceManager resourceManager, Stream<Identifier> idStream, Profiler profiler,
-//						   int mipmapLevel, CallbackInfoReturnable<SpriteAtlasTexture.Data> ci) {
-//		//textureStitcher.mipLevel = k;
-//
-//	}
-
-//	@Redirect(method = "stitch", at = @At(value = "INVOKE",
-//			target = "Lnet/minecraft/client/texture/TextureStitcher;add(Lnet/minecraft/client/texture/Sprite$Info;)V"))
-//	private void onStitchAdd(TextureStitcher textureStitcher, Sprite.Info info) {
-//		int p = Math.min(info.getWidth(), info.getHeight());
-//		textureStitcher.mipLevel = Math.min(textureStitcher.mipLevel, p);
-//
-//		textureStitcher.add(info);
-//	}
-
-//	@Inject(method = "stitch", at = @At("RETURN"))
-//	private void onStitch2(CallbackInfoReturnable<SpriteAtlasTexture.Data> ci) {
-//		ci.getReturnValue().sprites.forEach(sprite -> {
-//			TexTweaks.LOGGER.debug("Test " + sprite.getFrameCount());
-//		});
-//	}
-	
-	// Change texture size in sprite infos to prepare texture scaling
+	/**
+	 * Change texture size in sprite infos to prepare texture scaling
+	 */
 	@Inject(method = "loadSprites(Lnet/minecraft/resource/ResourceManager;Ljava/util/Set;)Ljava/util/Collection;",
 		at = @At("RETURN"))
 	private void onLoadSprites(ResourceManager resourceManager, Set<Identifier> ids,
@@ -185,16 +163,20 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 			}
 		}
 	}
-	
-	// Fix mipmapping of non power of 2 textures
-	// May cause problems
+
+	/**
+	 * Fix mipmapping of non power of 2 textures
+	 * May cause problems
+	 */
 	@Redirect(method = "stitch",
 		at = @At(value = "INVOKE", target = "Ljava/lang/Integer;lowestOneBit(I)I"))
 	private int onStitchLowestOneBit(int i) {
 		return i;
 	}
-	
-	// Scale NativeImage sprite
+
+	/**
+	 * Scale NativeImage sprite
+	 */
 	@Redirect(method = "loadSprite",
 		at = @At(value = "INVOKE",
 				target = "Lnet/minecraft/client/texture/NativeImage;read(Ljava/io/InputStream;)" +
@@ -225,30 +207,4 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 			return NativeImage.read(in);
 		}
 	}
-
-//	@Overwrite
-//	public void applyTextureFilter(SpriteAtlasTexture.Data data) {
-//		TexTweaks.LOGGER.debug(data);
-//		this.setFilter(true, data.maxLevel > 0);
-//	}
-
-//	@Override
-//	public void setFilter(boolean bilinear, boolean mipmap) {
-//		this.bilinear = bilinear;
-//		this.mipmap = mipmap;
-//		int k;
-//		short l;
-//		if (bilinear) {
-//			k = mipmap ? GL11.GL_LINEAR_MIPMAP_LINEAR : GL11.GL_LINEAR;
-//			l = GL11.GL_NEAREST;
-//		} else {
-//			k = mipmap ? GL11.GL_NEAREST_MIPMAP_LINEAR : GL11.GL_NEAREST;
-//			l = GL11.GL_NEAREST;
-//		}
-//		GlStateManager.texParameter();
-//		GlStateManager.texParameter(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, k);
-//		GlStateManager.texParameter(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, l);
-//	}
-
-
 }

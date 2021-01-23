@@ -19,9 +19,11 @@ public class TexTweaks implements ClientModInitializer {
 	
 	@Override
 	public void onInitializeClient() {
+		// Register config
 		AutoConfig.register(TexTweaksConfig.class, GsonConfigSerializer::new);
 		config = AutoConfig.getConfigHolder(TexTweaksConfig.class).getConfig();
 
+		// Register singleplayer command
 		CommandRegistrationCallback.EVENT.register(((dispatcher, dedicated) -> TexTweaksCommand.register(dispatcher)));
 	}
 }

@@ -21,8 +21,10 @@ public class TextureUtilMixin {
 			return maxLevel;
 		}
 	}
-	
-	// Set mipmap LOD bias
+
+	/**
+	 * Set mipmap LOD bias
+	 */
 	@Redirect(method = "allocate(Lnet/minecraft/client/texture/NativeImage$GLFormat;IIII)V",
 		at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/GlStateManager;texParameter(IIF)V"))
 	private static void setLodBias(int target, int pname, float param) {
