@@ -54,26 +54,26 @@ public class NativeImageUtil {
 				image.getWidth() / scale, image.getHeight() / scale, false);
 		for (int x = 0; x < newImage.getWidth(); ++x) {
 			for (int y = 0; y < newImage.getHeight(); ++y) {
+				int a = 0xFF;
 				long r = 0;
 				long g = 0;
 				long b = 0;
-				long a = 0;
 				ByteBuffer buffer = ByteBuffer.allocate(4);
 				for (int x1 = 0; x1 < scale; ++x1) {
 					for (int y1 = 0; y1 < scale; ++y1) {
 						buffer.putInt(image.getPixelColor(x * scale + x1, y * scale + y1));
-						r += Math.pow(Byte.toUnsignedInt(buffer.get(0)), 2);
-						g += Math.pow(Byte.toUnsignedInt(buffer.get(1)), 2);
-						b += Math.pow(Byte.toUnsignedInt(buffer.get(2)), 2);
-						a += Math.pow(Byte.toUnsignedInt(buffer.get(3)), 2);
+						a = Math.min(a, buffer.get(0));
+						r += Math.pow(Byte.toUnsignedInt(buffer.get(1)), 2);
+						g += Math.pow(Byte.toUnsignedInt(buffer.get(2)), 2);
+						b += Math.pow(Byte.toUnsignedInt(buffer.get(3)), 2);
 						buffer.clear();
 					}
 				}
 				double n = scale * scale;
-				int newColor = (MathHelper.floor(Math.sqrt(r / n)) << 24)
-						+ (MathHelper.floor(Math.sqrt(g / n)) << 16)
-						+ (MathHelper.floor(Math.sqrt(b / n)) << 8)
-						+ MathHelper.floor(Math.sqrt(a / n));
+				int newColor = (a << 24)
+						+ (MathHelper.floor(Math.sqrt(r / n)) << 16)
+						+ (MathHelper.floor(Math.sqrt(g / n)) << 8)
+						+ MathHelper.floor(Math.sqrt(b / n));
 
 				newImage.setPixelColor(x, y, newColor);
 			}

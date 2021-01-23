@@ -40,8 +40,8 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 	
 	private static final Consumer<Sprite.Info> PRESCALE_SPRITE = info -> {
 		AnimationResourceMetadata anim = info.animationData;
-		int w = info.getWidth();
-		int h = info.getHeight();
+		int w = anim.getWidth(info.getWidth());
+		int h = anim.getHeight(info.getHeight());
 		
 		int size = Math.min(w, h);
 		int res = 1 << TexTweaks.config.textureScaling.resolution;
@@ -107,8 +107,7 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 	@ModifyVariable(method = "stitch", at = @At("HEAD"), ordinal = 0)
 	private int onStitch(int mipmapLevel) {
 //		this.bilinear = true;
-		if (!id.toString().equals("minecraft:textures/atlas/blocks.png") ||
-				TexTweaks.config.other.excludedAtlas.contains(id.toString())) {
+		if (TexTweaks.config.other.excludedAtlas.contains(id.toString())) {
 			TexTweaks.LOGGER.debug("Skipped {}-atlas: excluded", id.toString());
 			SCALE_TEX.set(false);
 			return mipmapLevel;
