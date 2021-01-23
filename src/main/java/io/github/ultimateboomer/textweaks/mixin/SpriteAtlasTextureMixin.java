@@ -4,14 +4,12 @@ import com.google.common.collect.Lists;
 import io.github.ultimateboomer.textweaks.TexTweaks;
 import io.github.ultimateboomer.textweaks.util.NativeImageUtil;
 import net.minecraft.client.resource.metadata.AnimationResourceMetadata;
-import net.minecraft.client.texture.AbstractTexture;
-import net.minecraft.client.texture.NativeImage;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.client.texture.*;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.profiler.Profiler;
 import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +30,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 @Mixin(SpriteAtlasTexture.class)
 public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
@@ -117,8 +117,7 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 		
 		if (TexTweaks.config.betterMipmaps.enable) {
 			if (mipmapLevel != 0 || TexTweaks.config.betterMipmaps.universalMipmap) {
-				mipmapLevel = Math.min(TexTweaks.config.betterMipmaps.level,
-						TexTweaks.config.textureScaling.resolution);
+				mipmapLevel = TexTweaks.config.betterMipmaps.level;
 			}
 		}
 		
@@ -130,6 +129,24 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 		
 		return mipmapLevel;
 	}
+
+//	@Inject(method = "stitch", at = @At(value = "INVOKE",
+//			target = "Lnet/minecraft/client/texture/TextureStitcher;add(Lnet/minecraft/client/texture/Sprite$Info;)V"),
+//			locals = LocalCapture.CAPTURE_FAILEXCEPTION)
+//	private void onStitch2(ResourceManager resourceManager, Stream<Identifier> idStream, Profiler profiler,
+//						   int mipmapLevel, CallbackInfoReturnable<SpriteAtlasTexture.Data> ci) {
+//		//textureStitcher.mipLevel = k;
+//
+//	}
+
+//	@Redirect(method = "stitch", at = @At(value = "INVOKE",
+//			target = "Lnet/minecraft/client/texture/TextureStitcher;add(Lnet/minecraft/client/texture/Sprite$Info;)V"))
+//	private void onStitchAdd(TextureStitcher textureStitcher, Sprite.Info info) {
+//		int p = Math.min(info.getWidth(), info.getHeight());
+//		textureStitcher.mipLevel = Math.min(textureStitcher.mipLevel, p);
+//
+//		textureStitcher.add(info);
+//	}
 
 //	@Inject(method = "stitch", at = @At("RETURN"))
 //	private void onStitch2(CallbackInfoReturnable<SpriteAtlasTexture.Data> ci) {
