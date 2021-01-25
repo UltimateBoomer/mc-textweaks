@@ -5,10 +5,8 @@ import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 @Config(name = TexTweaks.MOD_ID)
 public class TexTweaksConfig implements ConfigData {
@@ -52,8 +50,7 @@ public class TexTweaksConfig implements ConfigData {
 	
 	public static class BetterMipmaps implements ConfigData {
 		public boolean enable = true;
-		
-		@ConfigEntry.Gui.Tooltip(count = 3)
+				@ConfigEntry.Gui.Tooltip(count = 3)
 		@ConfigEntry.BoundedDiscrete(min = 0, max = 9)
 		public int level = 9;
 
