@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(TextureStitcher.class)
-public class TextureStitcherHolderMixin {
+public class TextureStitcherMixin {
     /**
      * Reduce atlas size if mipmap level is set higher than necessary
      */

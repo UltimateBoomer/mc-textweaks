@@ -8,7 +8,7 @@
   "client": [
     "SpriteAtlasTextureMixin",
     "TextureUtilMixin",
-    "TextureStitcherHolderMixin"
+    "TextureStitcherMixin"
   ],
   "injectors": {
     "defaultRequire": 1
