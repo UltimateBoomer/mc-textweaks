@@ -28,4 +28,6 @@ accessible field net/minecraft/client/texture/SpriteAtlasTexture$Data spriteIds 
 accessible field net/minecraft/client/texture/TextureStitcher mipLevel I
 mutable field net/minecraft/client/texture/TextureStitcher mipLevel I
 
+accessible class net/minecraft/client/texture/TextureStitcher$Holder
+
 accessible method net/minecraft/client/texture/TextureStitcher applyMipLevel (II)I

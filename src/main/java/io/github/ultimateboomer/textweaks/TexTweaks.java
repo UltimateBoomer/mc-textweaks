@@ -62,7 +62,9 @@ public class TexTweaks implements ClientModInitializer {
 					String.format(" - Size: \u00a7a%s\u00a7rx\u00a7a%s\u00a7r", data.width, data.height)),
 					false);
 			mc.player.sendMessage(new LiteralText(
-					String.format(" - Mipmap Level: \u00a7c%s\u00a7r", data.maxLevel)), false);
+					String.format(" - # of textures: \u00a7b%s\u00a7r", data.spriteIds.size())), false);
+			mc.player.sendMessage(new LiteralText(
+					String.format(" - Mipmap Level: \u00a7a%s\u00a7r", data.maxLevel)), false);
 		});
 	}
 }
