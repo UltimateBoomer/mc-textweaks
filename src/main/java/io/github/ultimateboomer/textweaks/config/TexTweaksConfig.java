@@ -68,7 +68,8 @@ public class TexTweaksConfig implements ConfigData {
 	public static class Other implements ConfigData {
 		@ConfigEntry.Gui.Tooltip
 		public List<String> excludedAtlas = Arrays.asList("minecraft:textures/atlas/particles.png",
-			"minecraft:textures/atlas/mob_effects.png", "minecraft:textures/atlas/paintings.png");
+			"minecraft:textures/atlas/mob_effects.png", "minecraft:textures/atlas/paintings.png",
+				"minecraft:textures/atlas/banner_patterns.png", "minecraft:textures/atlas/shield_patterns.png");
 		
 		@ConfigEntry.Gui.Tooltip
 		public boolean parallelPreScaling = true;
