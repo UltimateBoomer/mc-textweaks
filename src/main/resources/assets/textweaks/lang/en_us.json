@@ -13,7 +13,9 @@
 	"text.autoconfig.textweaks.option.textureScaling.downscaleAlgorithm.@Tooltip[0]": "Select downscaling algorithm",
 	"text.autoconfig.textweaks.option.textureScaling.downscaleAlgorithm.@Tooltip[1]": "NEAREST- Use top-left pixel, sharper",
 	"text.autoconfig.textweaks.option.textureScaling.downscaleAlgorithm.@Tooltip[2]": "LINEAR - Average multiple pixels, softer",
-	
+	"text.autoconfig.textweaks.option.textureScaling.targetAtlases": "Target Texture Atlases",
+	"text.autoconfig.textweaks.option.textureScaling.targetAtlases.@Tooltip": "Texture Atlases included for scaling",
+
 	"text.autoconfig.textweaks.option.betterMipmaps": "Better Mipmaps",
 	"text.autoconfig.textweaks.option.betterMipmaps.@Tooltip": "Set mipmap level above 4",
 	"text.autoconfig.textweaks.option.betterMipmaps.enable": "Enable",
@@ -33,8 +35,6 @@
 	
 	"text.autoconfig.textweaks.option.other": "Other",
 	"text.autoconfig.textweaks.option.other.@Tooltip": "Other options",
-	"text.autoconfig.textweaks.option.other.excludedAtlas": "Excluded Atlas",
-	"text.autoconfig.textweaks.option.other.excludedAtlas.@Tooltip": "Atlases to be excluded from scaling",
 	"text.autoconfig.textweaks.option.other.parallelPreScaling": "Parallel Pre-scaling",
 	"text.autoconfig.textweaks.option.other.parallelPreScaling.@Tooltip": "Can marginally improve scaling performance",
 

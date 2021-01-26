@@ -108,14 +108,14 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 	 */
 	@ModifyVariable(method = "stitch", at = @At("HEAD"), ordinal = 0)
 	private int onStitch(int mipmapLevel) {
-		if (TexTweaks.config.other.excludedAtlas.contains(id.toString())) {
+		if (!TexTweaks.config.textureScaling.targetAtlases.contains(id.toString())) {
 			TexTweaks.LOGGER.debug("Skipped {}-atlas: excluded", id.toString());
 			SCALE_TEX.set(false);
 			return mipmapLevel;
 		}
 
 		SCALE_TEX.set(false);
-		
+
 		if (TexTweaks.config.betterMipmaps.enable) {
 			if (mipmapLevel != 0 || TexTweaks.config.betterMipmaps.universalMipmap) {
 				mipmapLevel = TexTweaks.config.betterMipmaps.level;
