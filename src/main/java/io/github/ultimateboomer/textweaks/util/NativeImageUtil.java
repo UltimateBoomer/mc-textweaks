@@ -1,7 +1,6 @@
 package io.github.ultimateboomer.textweaks.util;
 
 import io.github.ultimateboomer.textweaks.TexTweaks;
-import io.github.ultimateboomer.textweaks.config.TexTweaksConfig;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.util.math.MathHelper;
 
@@ -28,6 +27,7 @@ public class NativeImageUtil {
 					return downscaleImageLinear(image, -power);
 			}
 		}
+		image.close();
 		return null;
 	}
 
@@ -40,6 +40,7 @@ public class NativeImageUtil {
 				newImage.fillRect(x * scale, y * scale, scale, scale, image.getPixelColor(x, y));
 			}
 		}
+		image.close();
 		return newImage;
 	}
 
@@ -52,6 +53,7 @@ public class NativeImageUtil {
 				newImage.setPixelColor(x, y, image.getPixelColor(x * scale, y * scale));
 			}
 		}
+		image.close();
 		return newImage;
 	}
 
@@ -85,6 +87,7 @@ public class NativeImageUtil {
 				newImage.setPixelColor(x, y, newColor);
 			}
 		}
+		image.close();
 		return newImage;
 	}
 }
