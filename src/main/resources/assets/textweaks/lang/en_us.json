@@ -37,6 +37,8 @@
 	"text.autoconfig.textweaks.option.other.@Tooltip": "Other options",
 	"text.autoconfig.textweaks.option.other.parallelPreScaling": "Parallel Pre-scaling",
 	"text.autoconfig.textweaks.option.other.parallelPreScaling.@Tooltip": "Can marginally improve scaling performance",
+	"text.autoconfig.textweaks.option.other.replaceAllImages": "Forbidden Option",
+	"text.autoconfig.textweaks.option.other.replaceAllImages.@Tooltip": "???",
 
 	"category.textweaks": "TexTweaks",
 	"key.textweaks.info": "Show Texture Info"

@@ -8,7 +8,8 @@
   "client": [
     "SpriteAtlasTextureMixin",
     "TextureUtilMixin",
-    "TextureStitcherMixin"
+    "TextureStitcherMixin",
+    "ReloadableResourceManagerImplMixin"
   ],
   "injectors": {
     "defaultRequire": 1
