@@ -213,11 +213,14 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 				algorithm = TexTweaks.config.textureScaling.downscaleAlgorithm;
 			}
 
+			NativeImage newImage;
 			if (algorithm.equals(TexTweaksConfig.TextureScaling.ScalingAlgorithm.NEAREST)) {
-				NativeImageUtil.scaleImageNearest(image, scale);
+				newImage = NativeImageUtil.scaleImageNearest(image, scale);
 			} else {
-				NativeImageUtil.scaleImage(image, scale);
+				newImage = NativeImageUtil.scaleImageLinear(image, scale);
 			}
+			image.close();
+			image = newImage;
 		}
 
 		return image;

@@ -54,7 +54,11 @@ public class TexTweaksConfig implements ConfigData {
 		public List<String> upscaleTargetAtlases = Arrays.asList("minecraft:textures/atlas/blocks.png");
 
 		@ConfigEntry.Gui.Tooltip
-		public List<String> downscaleTargetAtlases = Arrays.asList("minecraft:textures/atlas");
+		public List<String> downscaleTargetAtlases = Arrays.asList("minecraft:textures/atlas/blocks.png",
+				"minecraft:textures/atlas/signs.png", "minecraft:textures/atlas/chest.png",
+				"minecraft:textures/atlas/beds.png", "minecraft:textures/atlas/shulker_boxes",
+				"minecraft:textures/atlas/paintings.png",
+				"minecraft:textures/atlas/banner_patterns.png", "minecraft:textures/atlas/shield_patterns");
 	}
 	
 	public static class BetterMipmaps implements ConfigData {
