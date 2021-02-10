@@ -27,35 +27,53 @@ public class TexTweaksConfig implements ConfigData {
 	public Other other = new Other();
 	
 	public static class TextureScaling implements ConfigData {
-		public boolean enable = true;
+		public boolean enableUpscale = true;
+
+		public boolean enableDownscale = false;
 		
 		@ConfigEntry.Gui.Tooltip
-		@ConfigEntry.BoundedDiscrete(min = 1, max = 9)
+		@ConfigEntry.BoundedDiscrete(min = 0, max = 9)
 		public int resolution = 4;
 		
 		@ConfigEntry.Gui.Tooltip
 		public int maxScale = 8;
 
-		@ConfigEntry.Gui.Tooltip
-		public boolean downscale = false;
+		@ConfigEntry.Gui.Tooltip(count = 3)
+		@ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
+		public ScalingAlgorithm upscaleAlgorithm = ScalingAlgorithm.LINEAR;
 
 		@ConfigEntry.Gui.Tooltip(count = 3)
 		@ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
-		public DownscaleAlgorithm downscaleAlgorithm = DownscaleAlgorithm.LINEAR;
+		public ScalingAlgorithm downscaleAlgorithm = ScalingAlgorithm.LINEAR;
 
-		public enum DownscaleAlgorithm {
+		public enum ScalingAlgorithm {
 			NEAREST, LINEAR;
 		}
+
+		@ConfigEntry.Gui.Tooltip
+		public List<String> upscaleTargetAtlases = Arrays.asList("minecraft:textures/atlas/blocks.png");
+
+		@ConfigEntry.Gui.Tooltip
+		public List<String> downscaleTargetAtlases = Arrays.asList("minecraft:textures/atlas/blocks.png",
+				"minecraft:textures/atlas/signs.png", "minecraft:textures/atlas/chest.png",
+				"minecraft:textures/atlas/beds.png", "minecraft:textures/atlas/shulker_boxes",
+				"minecraft:textures/atlas/paintings.png",
+				"minecraft:textures/atlas/banner_patterns.png", "minecraft:textures/atlas/shield_patterns");
 	}
 	
 	public static class BetterMipmaps implements ConfigData {
 		public boolean enable = true;
-				@ConfigEntry.Gui.Tooltip(count = 3)
+
+		@ConfigEntry.Gui.Tooltip(count = 3)
 		@ConfigEntry.BoundedDiscrete(min = 0, max = 9)
 		public int level = 9;
 
 		@ConfigEntry.Gui.Tooltip
 		public boolean universalMipmap = false;
+
+		public boolean mipmapBlockCutouts = true;
+
+		public boolean mipmapChests = true;
 	}
 	
 	public static class LodBias implements ConfigData {
@@ -67,11 +85,9 @@ public class TexTweaksConfig implements ConfigData {
 	
 	public static class Other implements ConfigData {
 		@ConfigEntry.Gui.Tooltip
-		public List<String> excludedAtlas = Arrays.asList("minecraft:textures/atlas/particles.png",
-			"minecraft:textures/atlas/mob_effects.png", "minecraft:textures/atlas/paintings.png",
-				"minecraft:textures/atlas/banner_patterns.png", "minecraft:textures/atlas/shield_patterns.png");
-		
-		@ConfigEntry.Gui.Tooltip
 		public boolean parallelPreScaling = true;
+
+		@ConfigEntry.Gui.Tooltip
+		public boolean replaceAllImages = false;
 	}
 }
