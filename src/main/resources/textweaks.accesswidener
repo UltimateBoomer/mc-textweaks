@@ -31,3 +31,21 @@ mutable field net/minecraft/client/texture/TextureStitcher mipLevel I
 accessible class net/minecraft/client/texture/TextureStitcher$Holder
 
 accessible method net/minecraft/client/texture/TextureStitcher applyMipLevel (II)I
+
+accessible field net/minecraft/client/render/RenderLayer SOLID Lnet/minecraft/client/render/RenderLayer;
+accessible field net/minecraft/client/render/RenderLayer CUTOUT_MIPPED Lnet/minecraft/client/render/RenderLayer;
+accessible field net/minecraft/client/render/RenderLayer CUTOUT Lnet/minecraft/client/render/RenderLayer;
+accessible field net/minecraft/client/render/RenderLayer TRANSLUCENT Lnet/minecraft/client/render/RenderLayer;
+accessible field net/minecraft/client/render/RenderLayer TRANSLUCENT_MOVING_BLOCK Lnet/minecraft/client/render/RenderLayer;
+accessible field net/minecraft/client/render/RenderLayer TRANSLUCENT_NO_CRUMBLING Lnet/minecraft/client/render/RenderLayer;
+accessible field net/minecraft/client/render/RenderLayer LEASH Lnet/minecraft/client/render/RenderLayer;
+accessible field net/minecraft/client/render/RenderLayer WATER_MASK Lnet/minecraft/client/render/RenderLayer;
+accessible field net/minecraft/client/render/RenderLayer ARMOR_GLINT Lnet/minecraft/client/render/RenderLayer;
+accessible field net/minecraft/client/render/RenderLayer ARMOR_ENTITY_GLINT Lnet/minecraft/client/render/RenderLayer;
+accessible field net/minecraft/client/render/RenderLayer GLINT_TRANSLUCENT Lnet/minecraft/client/render/RenderLayer;
+accessible field net/minecraft/client/render/RenderLayer GLINT Lnet/minecraft/client/render/RenderLayer;
+accessible field net/minecraft/client/render/RenderLayer DIRECT_GLINT Lnet/minecraft/client/render/RenderLayer;
+accessible field net/minecraft/client/render/RenderLayer ENTITY_GLINT Lnet/minecraft/client/render/RenderLayer;
+accessible field net/minecraft/client/render/RenderLayer DIRECT_ENTITY_GLINT Lnet/minecraft/client/render/RenderLayer;
+accessible field net/minecraft/client/render/RenderLayer LIGHTNING Lnet/minecraft/client/render/RenderLayer;
+accessible field net/minecraft/client/render/RenderLayer TRIPWIRE Lnet/minecraft/client/render/RenderLayer;

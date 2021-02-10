@@ -43,7 +43,7 @@ dependencies {
 
 	modRuntime "io.github.ultimateboomer:smoothboot-fabric:${project.smoothboot_version}"
 
-	modImplementation "com.github.Chocohead:OptiFabric:${project.optifabric_version}"
+//	modImplementation "com.github.Chocohead:OptiFabric:${project.optifabric_version}"
 
 
 

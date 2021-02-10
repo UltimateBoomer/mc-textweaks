@@ -4,12 +4,16 @@
   "package": "io.github.ultimateboomer.textweaks.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+
   ],
   "client": [
+    "AbstractTextureMixin",
+    "ReloadableResourceManagerImplMixin",
     "SpriteAtlasTextureMixin",
-    "TextureUtilMixin",
     "TextureStitcherMixin",
-    "ReloadableResourceManagerImplMixin"
+    "TextureUtilMixin",
+    "ChestBlockEntityRendererMixin",
+    "RenderLayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

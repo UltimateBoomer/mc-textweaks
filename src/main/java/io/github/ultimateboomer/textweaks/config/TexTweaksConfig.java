@@ -32,7 +32,7 @@ public class TexTweaksConfig implements ConfigData {
 		public boolean enableDownscale = false;
 		
 		@ConfigEntry.Gui.Tooltip
-		@ConfigEntry.BoundedDiscrete(min = 1, max = 9)
+		@ConfigEntry.BoundedDiscrete(min = 0, max = 9)
 		public int resolution = 4;
 		
 		@ConfigEntry.Gui.Tooltip
@@ -70,6 +70,10 @@ public class TexTweaksConfig implements ConfigData {
 
 		@ConfigEntry.Gui.Tooltip
 		public boolean universalMipmap = false;
+
+		public boolean mipmapBlockCutouts = true;
+
+		public boolean mipmapChests = true;
 	}
 	
 	public static class LodBias implements ConfigData {
