@@ -3,6 +3,7 @@
   "minVersion": "0.8",
   "package": "io.github.ultimateboomer.textweaks.mixin",
   "compatibilityLevel": "JAVA_8",
+  "plugin": "io.github.ultimateboomer.textweaks.TexTweaksMixinPlugin",
   "mixins": [
 
   ],

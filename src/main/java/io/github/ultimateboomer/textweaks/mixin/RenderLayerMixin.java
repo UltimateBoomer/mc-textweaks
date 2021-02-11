@@ -9,6 +9,9 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(RenderLayer.class)
 public abstract class RenderLayerMixin extends RenderPhase {
+//    @Unique
+//    private static RenderLayer CUTOUT_TEXTWEAKS_MIPPED;
+
     public RenderLayerMixin(String name, Runnable beginAction, Runnable endAction) {
         super(name, beginAction, endAction);
     }
@@ -23,6 +26,29 @@ public abstract class RenderLayerMixin extends RenderPhase {
             return builder.texture(texture);
         }
     }
+
+//    @Redirect(method = "<clinit>",at = @At(value = "INVOKE",
+//            target = "Lnet/minecraft/client/render/RenderLayer;of(Ljava/lang/String;Lnet/minecraft/client/render/VertexFormat;IIZZLnet/minecraft/client/render/RenderLayer$MultiPhaseParameters;)Lnet/minecraft/client/render/RenderLayer$MultiPhase;"))
+//    private static RenderLayer.MultiPhase onClInit(String name, VertexFormat vertexFormat, int drawMode, int expectedBufferSize,
+//                                         boolean hasCrumbling, boolean translucent,
+//                                         RenderLayer.MultiPhaseParameters phases) {
+//        if (name.equals("cutout")) {
+//            CUTOUT_TEXTWEAKS_MIPPED = RenderLayer.of("cutout_textweaks_mipped", vertexFormat, drawMode, expectedBufferSize, hasCrumbling,
+//                    translucent, RenderLayer.MultiPhaseParameters.builder().shadeModel(SMOOTH_SHADE_MODEL)
+//                            .lightmap(ENABLE_LIGHTMAP).texture(MIPMAP_BLOCK_ATLAS_TEXTURE).alpha(HALF_ALPHA)
+//                            .build(true));
+//        }
+//        return RenderLayer.of(name, vertexFormat, drawMode, expectedBufferSize, hasCrumbling,
+//                translucent, phases);
+//    }
+
+
+//    @Redirect(method = "getCutout", at = @At(value = "FIELD",
+//            target = "Lnet/minecraft/client/render/RenderLayer;CUTOUT:Lnet/minecraft/client/render/RenderLayer;",
+//            opcode = Opcodes.GETSTATIC))
+//    private static RenderLayer onGetCutOut() {
+//        return TexTweaks.config.betterMipmaps.mipmapBlockCutouts ? CUTOUT_MIPPED : CUTOUT;
+//    }
 
     /**
      * @author UltimateBoomer

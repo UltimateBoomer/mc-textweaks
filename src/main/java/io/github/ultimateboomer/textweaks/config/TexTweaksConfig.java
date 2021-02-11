@@ -12,13 +12,13 @@ import java.util.List;
 public class TexTweaksConfig implements ConfigData {
 	@ConfigEntry.Gui.Tooltip
 	@ConfigEntry.Gui.CollapsibleObject
-	public TextureScaling textureScaling= new TextureScaling();
+	public TextureScaling textureScaling = new TextureScaling();
 	
 	@ConfigEntry.Gui.Tooltip
 	@ConfigEntry.Gui.CollapsibleObject
 	public BetterMipmaps betterMipmaps = new BetterMipmaps();
 	
-	@ConfigEntry.Gui.Tooltip
+	@ConfigEntry.Gui.Tooltip(count = 2)
 	@ConfigEntry.Gui.CollapsibleObject
 	public LodBias lodBias = new LodBias();
 	
@@ -27,20 +27,17 @@ public class TexTweaksConfig implements ConfigData {
 	public Other other = new Other();
 	
 	public static class TextureScaling implements ConfigData {
-		public boolean enableUpscale = true;
+		public boolean enableUpscale = false;
 
 		public boolean enableDownscale = false;
 		
-		@ConfigEntry.Gui.Tooltip
+		@ConfigEntry.Gui.Tooltip(count = 2)
 		@ConfigEntry.BoundedDiscrete(min = 0, max = 9)
 		public int resolution = 4;
-		
-		@ConfigEntry.Gui.Tooltip
-		public int maxScale = 8;
 
 		@ConfigEntry.Gui.Tooltip(count = 3)
 		@ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
-		public ScalingAlgorithm upscaleAlgorithm = ScalingAlgorithm.LINEAR;
+		public ScalingAlgorithm upscaleAlgorithm = ScalingAlgorithm.NEAREST;
 
 		@ConfigEntry.Gui.Tooltip(count = 3)
 		@ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
@@ -71,20 +68,23 @@ public class TexTweaksConfig implements ConfigData {
 		@ConfigEntry.Gui.Tooltip
 		public boolean universalMipmap = false;
 
-		public boolean mipmapBlockCutouts = true;
+		@ConfigEntry.Gui.Tooltip(count = 2)
+		@ConfigEntry.Gui.RequiresRestart
+		public boolean mipmapBlockCutouts = false;
 
-		public boolean mipmapChests = true;
+		@ConfigEntry.Gui.Tooltip(count = 2)
+		public boolean mipmapChests = false;
 	}
 	
 	public static class LodBias implements ConfigData {
 		public boolean enable = false;
 		
-		@ConfigEntry.Gui.Tooltip(count = 2)
+		@ConfigEntry.Gui.Tooltip(count = 3)
 		public float value = 0.0f;
 	}
 	
 	public static class Other implements ConfigData {
-		@ConfigEntry.Gui.Tooltip
+		@ConfigEntry.Gui.Tooltip(count = 2)
 		public boolean parallelPreScaling = true;
 
 		@ConfigEntry.Gui.Tooltip
