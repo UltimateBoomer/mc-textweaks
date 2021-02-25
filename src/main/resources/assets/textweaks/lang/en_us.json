@@ -21,7 +21,7 @@
 	"text.autoconfig.textweaks.option.textureScaling.downscaleAlgorithm.@Tooltip[2]": "LINEAR - Average multiple pixels",
 	"text.autoconfig.textweaks.option.textureScaling.upscaleTargetAtlases": "Upscale Target Atlases",
 	"text.autoconfig.textweaks.option.textureScaling.upscaleTargetAtlases.@Tooltip": "Texture Atlases included for upscaling",
-	"text.autoconfig.textweaks.option.textureScaling.downscaleTargetAtlases": "Upscale Target Atlases",
+	"text.autoconfig.textweaks.option.textureScaling.downscaleTargetAtlases": "Downscale Target Atlases",
 	"text.autoconfig.textweaks.option.textureScaling.downscaleTargetAtlases.@Tooltip": "Texture Atlases included for downscaling",
 
 	"text.autoconfig.textweaks.option.betterMipmaps": "Better Mipmaps",

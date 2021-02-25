@@ -14,6 +14,7 @@ public class TexTweaksMixinPlugin implements IMixinConfigPlugin {
 
     public TexTweaksMixinPlugin() {
         optifineIncompatible.add("io.github.ultimateboomer.textweaks.mixin.RenderLayerMixin");
+        optifineIncompatible.add("io.github.ultimateboomer.textweaks.mixin.MipmapHelperMixin");
     }
 
     @Override

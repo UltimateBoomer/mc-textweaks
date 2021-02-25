@@ -68,8 +68,10 @@ public class TexTweaksConfig implements ConfigData {
 		@ConfigEntry.Gui.Tooltip
 		public boolean universalMipmap = false;
 
+		@ConfigEntry.Gui.Tooltip
+		public boolean overrideMipmapGeneration = false;
+
 		@ConfigEntry.Gui.Tooltip(count = 2)
-		@ConfigEntry.Gui.RequiresRestart
 		public boolean mipmapBlockCutouts = false;
 
 		@ConfigEntry.Gui.Tooltip(count = 2)
