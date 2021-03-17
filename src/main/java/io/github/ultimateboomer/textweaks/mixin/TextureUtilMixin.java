@@ -7,21 +7,10 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(TextureUtil.class)
 public class TextureUtilMixin {
-	@ModifyVariable(method = "allocate(Lnet/minecraft/client/texture/NativeImage$GLFormat;IIII)V",
-		at = @At("HEAD"), ordinal = 1)
-	private static int onAllocate(int maxLevel) {
-		if (maxLevel == 0) {
-			return 4;
-		} else {
-			return maxLevel;
-		}
-	}
-
 	/**
 	 * Set mipmap LOD bias
 	 */

@@ -2,7 +2,7 @@ package io.github.ultimateboomer.textweaks.mixin;
 
 import io.github.ultimateboomer.niapi.NativeImageUtil;
 import io.github.ultimateboomer.textweaks.TexTweaks;
-import io.github.ultimateboomer.textweaks.config.TexTweaksConfig;
+import io.github.ultimateboomer.textweaks.config.ScalingAlgorithm;
 import net.minecraft.client.resource.metadata.AnimationResourceMetadata;
 import net.minecraft.client.texture.AbstractTexture;
 import net.minecraft.client.texture.NativeImage;
@@ -39,15 +39,20 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 	 */
 	@ModifyVariable(method = "stitch", at = @At("HEAD"), ordinal = 0)
 	private int onStitch(int mipmapLevel) {
-		if (TexTweaks.config.betterMipmaps.enable) {
-			if (mipmapLevel != 0 || TexTweaks.config.betterMipmaps.universalMipmap) {
-				mipmapLevel = TexTweaks.config.betterMipmaps.level;
-			}
+		if (TexTweaks.config.betterMipmaps.enable && mipmapLevel != 0
+				&& TexTweaks.config.betterMipmaps.targetAtlases.stream().anyMatch(s ->
+				this.id.toString().startsWith(s))) {
+			return TexTweaks.config.betterMipmaps.level;
+		} else if (TexTweaks.config.betterMipmaps.onlyMipmapTarget) {
+			return 0;
+		} else {
+			return mipmapLevel;
 		}
-		
-		return mipmapLevel;
 	}
 
+	/**
+	 * Save stitched data for texture info display
+	 */
 	@Inject(method = "stitch", at = @At("RETURN"))
 	private void onStitchReturn(CallbackInfoReturnable<SpriteAtlasTexture.Data> ci) {
 		SpriteAtlasTexture.Data data = ci.getReturnValue();
@@ -87,7 +92,6 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 
 	/**
 	 * Fix mipmapping of non power of 2 textures
-	 * May cause problems
 	 */
 	@Redirect(method = "stitch",
 		at = @At(value = "INVOKE", target = "Ljava/lang/Integer;lowestOneBit(I)I"))
@@ -119,7 +123,7 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 	        TexTweaks.LOGGER.debug("Scale {} {}x {}x{} -> {}x{}", info.getId().toString(), scale, w, h,
 					info.width, info.height);
 
-			TexTweaksConfig.TextureScaling.ScalingAlgorithm algorithm;
+			ScalingAlgorithm algorithm;
 			if (scale > 1.0) {
 				algorithm = TexTweaks.config.textureScaling.upscaleAlgorithm;
 			} else {
@@ -127,7 +131,7 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 			}
 
 			NativeImage newImage;
-			if (algorithm.equals(TexTweaksConfig.TextureScaling.ScalingAlgorithm.NEAREST)) {
+			if (algorithm.equals(ScalingAlgorithm.NEAREST)) {
 				newImage = NativeImageUtil.scaleImageNearest(image, scale);
 			} else {
 				newImage = NativeImageUtil.scaleImageLinear(image, scale);
@@ -139,6 +143,9 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 		return image;
 	}
 
+	/**
+	 * Prepare parameters for scaling
+	 */
 	private static void prescaleSprite(Sprite.Info info, boolean upscale, boolean downscale) {
 		AnimationResourceMetadata anim = info.animationData;
 		int w = anim.getWidth(info.getWidth());

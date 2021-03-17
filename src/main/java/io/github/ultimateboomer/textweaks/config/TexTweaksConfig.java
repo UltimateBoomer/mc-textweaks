@@ -25,13 +25,13 @@ public class TexTweaksConfig implements ConfigData {
 	@ConfigEntry.Gui.Tooltip
 	@ConfigEntry.Gui.CollapsibleObject
 	public Other other = new Other();
-	
+
 	public static class TextureScaling implements ConfigData {
 		public boolean enableUpscale = false;
 
 		public boolean enableDownscale = false;
 		
-		@ConfigEntry.Gui.Tooltip(count = 2)
+		@ConfigEntry.Gui.Tooltip(count = 3)
 		@ConfigEntry.BoundedDiscrete(min = 0, max = 9)
 		public int resolution = 4;
 
@@ -42,10 +42,6 @@ public class TexTweaksConfig implements ConfigData {
 		@ConfigEntry.Gui.Tooltip(count = 3)
 		@ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
 		public ScalingAlgorithm downscaleAlgorithm = ScalingAlgorithm.LINEAR;
-
-		public enum ScalingAlgorithm {
-			NEAREST, LINEAR;
-		}
 
 		@ConfigEntry.Gui.Tooltip
 		public List<String> upscaleTargetAtlases = Arrays.asList("minecraft:textures/atlas/blocks.png");
@@ -66,7 +62,10 @@ public class TexTweaksConfig implements ConfigData {
 		public int level = 9;
 
 		@ConfigEntry.Gui.Tooltip
-		public boolean universalMipmap = false;
+		public List<String> targetAtlases = Arrays.asList("minecraft:textures/atlas/blocks.png");
+
+		@ConfigEntry.Gui.Tooltip
+		public boolean onlyMipmapTarget = false;
 
 		@ConfigEntry.Gui.Tooltip
 		public boolean overrideMipmapGeneration = false;
