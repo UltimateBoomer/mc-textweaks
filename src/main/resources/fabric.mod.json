@@ -10,7 +10,8 @@
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/textweaks",
-    "sources": "https://github.com/UltimateBoomer/mc-textweaks"
+    "sources": "https://github.com/UltimateBoomer/mc-textweaks",
+    "issues": "https://github.com/UltimateBoomer/mc-textweaks/issues"
   },
 
   "license": "MIT",

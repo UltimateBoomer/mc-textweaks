@@ -11,7 +11,6 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
-import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,98 +30,18 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Mixin(SpriteAtlasTexture.class)
 public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
-	private static final ThreadLocal<Boolean> SCALE_TEX = ThreadLocal.withInitial(() -> false);
-
 	private static final Map<Identifier, Double> SCALE_MAP = new ConcurrentHashMap<>();
-	
-//	private static final Consumer<Sprite.Info> PRESCALE_SPRITE = info -> {
-//		AnimationResourceMetadata anim = info.animationData;
-//		int w = anim.getWidth(info.getWidth());
-//		int h = anim.getHeight(info.getHeight());
-//
-//		int size = Math.min(w, h);
-//		int res = 1 << TexTweaks.config.textureScaling.resolution;
-//
-//		if (size == res) {
-//			return;
-//		}
-//
-////		boolean upscale;
-////		if (TexTweaks.config.textureScaling.enableDownscale) {
-////			if (res < size) {
-////				upscale = false;
-////			} else {
-////				upscale = true;
-////			}
-////		} else {
-////			upscale = true;
-////		}
-//
-//		double scale = res / (double) size;
-////		scale = Math.min(scale, 1 << TexTweaks.config.textureScaling.maxScale); // Clamp to max scale
-//
-//		if (scale > 1.0 && )
-//
-//		if (!TexTweaks.config.textureScaling.enableUpscale) {
-//			scale = Math.min(scale, 1.0);
-//		}
-//
-//		if (!TexTweaks.config.textureScaling.enableDownscale) {
-//			scale = Math.max(scale, 1.0);
-//		}
-//
-//		info.width *= scale;
-//		info.height *= scale;
-//
-//		if (info.animationData.width > 0) {
-//			info.animationData.width *= scale;
-//			info.animationData.height *= scale;
-//		}
-//
-//		SCALE_MAP.put(info.getId(), (int) (Math.log(scale) / Math.log(2)));
-//
-////		TexTweaks.LOGGER.debug("Pre-scale {} {}x {}x{} -> {}x{} A{}x{}", info.getId().toString(), scale, w, h,
-////				info.width, info.height, info.animationData.getWidth(-1), info.animationData.getHeight(-1));
-//
-//	};
 
-	@Shadow
-	@Final
-	private Map<Identifier, Sprite> sprites;
-
-	@Shadow
-	@Final
-	private static Logger LOGGER;
-
-	@Shadow
-	@Final
-	private Identifier id;
-
-	@Shadow
-	private Collection<Sprite.Info> loadSprites(ResourceManager resourceManager, Set<Identifier> ids) { return null; }
+	@Shadow @Final private Identifier id;
 
 	/**
 	 * Modify mipmap level value and pass mipmap parameter
 	 */
 	@ModifyVariable(method = "stitch", at = @At("HEAD"), ordinal = 0)
-	private int onStitch(int mipmapLevel) throws IOException {
-//		if (!TexTweaks.config.textureScaling.upscaleTargetAtlases.contains(id.toString())) {
-//			TexTweaks.LOGGER.debug("Skipped {}-atlas: excluded", id.toString());
-//			SCALE_TEX.set(false);
-//			return mipmapLevel;
-//		}
-
-		SCALE_TEX.set(false);
-
+	private int onStitch(int mipmapLevel) {
 		if (TexTweaks.config.betterMipmaps.enable) {
 			if (mipmapLevel != 0 || TexTweaks.config.betterMipmaps.universalMipmap) {
 				mipmapLevel = TexTweaks.config.betterMipmaps.level;
-			}
-		}
-		
-		if (TexTweaks.config.textureScaling.enableUpscale) {
-			if (mipmapLevel != 0) {
-				SCALE_TEX.set(true);
 			}
 		}
 		
@@ -143,29 +62,26 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 	private void onLoadSprites(ResourceManager resourceManager, Set<Identifier> ids,
 							   CallbackInfoReturnable<Collection<Sprite.Info>> ci) throws Exception {
 		if (TexTweaks.config.textureScaling.enableUpscale || TexTweaks.config.textureScaling.enableDownscale) {
-			boolean upscale = TexTweaks.config.textureScaling.upscaleTargetAtlases.stream().anyMatch(s ->
-					id.toString().startsWith(s));
-			boolean downscale = TexTweaks.config.textureScaling.downscaleTargetAtlases.stream().anyMatch(s ->
-					id.toString().startsWith(s));
+			boolean upscale = TexTweaks.config.textureScaling.enableUpscale
+					&& TexTweaks.config.textureScaling.upscaleTargetAtlases.stream().anyMatch(s ->
+					this.id.toString().startsWith(s));
+
+			boolean downscale = TexTweaks.config.textureScaling.enableDownscale
+					&& TexTweaks.config.textureScaling.downscaleTargetAtlases.stream().anyMatch(s ->
+					this.id.toString().startsWith(s));
 
 			if (upscale || downscale) {
 				TexTweaks.LOGGER.debug("Preparing to scale {}-atlas", id);
 				Collection<Sprite.Info> returnValue = ci.getReturnValue();
 
-				if (TexTweaks.config.other.parallelPreScaling) {
-					CompletableFuture.runAsync(() -> returnValue.parallelStream().forEach(info ->
-							prescaleSprite(info, upscale, downscale)), Util.getMainWorkerExecutor()).get();
-				} else {
-					returnValue.forEach(info -> prescaleSprite(info, upscale, downscale));
-				}
+				CompletableFuture.runAsync(() -> returnValue.parallelStream().forEach(info ->
+						prescaleSprite(info, upscale, downscale)), Util.getMainWorkerExecutor()).get();
 
-				TexTweaks.LOGGER.debug("Pre-scaled {}-atlas", id);
+				TexTweaks.LOGGER.info("Pre-scaled {}-atlas", id);
 			} else {
-				TexTweaks.LOGGER.debug("Skipped {}-atlas: excluded", id);
+				TexTweaks.LOGGER.info("Skipped scaling {}-atlas", id);
 			}
 
-		} else {
-			TexTweaks.LOGGER.debug("Skipped {}-atlas: scaling disabled", id);
 		}
 	}
 
@@ -200,11 +116,8 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 			double scale = SCALE_MAP.get(info.getId());
 
 			SCALE_MAP.remove(info.getId());
-	        if (scale != 1.0) {
-	        	TexTweaks.LOGGER.debug("Scale {} {}x {}x{} -> {}x{}", info.getId().toString(), scale, w, h,
-						info.width, info.height);
-
-	        }
+	        TexTweaks.LOGGER.debug("Scale {} {}x {}x{} -> {}x{}", info.getId().toString(), scale, w, h,
+					info.width, info.height);
 
 			TexTweaksConfig.TextureScaling.ScalingAlgorithm algorithm;
 			if (scale > 1.0) {
@@ -226,7 +139,7 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 		return image;
 	}
 
-	private void prescaleSprite(Sprite.Info info, boolean upscale, boolean downscale) {
+	private static void prescaleSprite(Sprite.Info info, boolean upscale, boolean downscale) {
 		AnimationResourceMetadata anim = info.animationData;
 		int w = anim.getWidth(info.getWidth());
 		int h = anim.getHeight(info.getHeight());
@@ -238,8 +151,7 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 			return;
 		}
 
-		double scale = res / (double) size;
-//		scale = Math.min(scale, 1 << TexTweaks.config.textureScaling.maxScale); // Clamp to max scale
+		double scale = (double) res / size;
 
 		if (scale > 1.0 && !upscale) {
 			return;
@@ -258,9 +170,6 @@ public abstract class SpriteAtlasTextureMixin extends AbstractTexture {
 		}
 
 		SCALE_MAP.put(info.getId(), scale);
-
-//		TexTweaks.LOGGER.debug("Pre-scale {} {}x {}x{} -> {}x{} A{}x{}", info.getId().toString(), scale, w, h,
-//				info.width, info.height, info.animationData.getWidth(-1), info.animationData.getHeight(-1));
 
 	}
 }

@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_8",
   "plugin": "io.github.ultimateboomer.textweaks.TexTweaksMixinPlugin",
   "client": [
-    "AbstractTextureMixin",
     "ChestBlockEntityRendererMixin",
     "ReloadableResourceManagerImplMixin",
     "RenderLayerMixin",

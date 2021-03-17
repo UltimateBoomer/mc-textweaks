@@ -36,8 +36,7 @@ public class TexTweaks implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		// Register config
-		AutoConfig.register(TexTweaksConfig.class, GsonConfigSerializer::new);
-		config = AutoConfig.getConfigHolder(TexTweaksConfig.class).getConfig();
+		initConfig();
 
 		// Register keybindings
 		keyInfo = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.textweaks.info",
@@ -49,6 +48,16 @@ public class TexTweaks implements ClientModInitializer {
 				}
 			}
 		});
+
+		LOGGER.info("Mod initialization complete");
+	}
+
+	public static void initConfig() {
+		if (config == null) {
+			AutoConfig.register(TexTweaksConfig.class, GsonConfigSerializer::new);
+			config = AutoConfig.getConfigHolder(TexTweaksConfig.class).getConfig();
+			LOGGER.info("Mod config initialized");
+		}
 	}
 
 	/**
