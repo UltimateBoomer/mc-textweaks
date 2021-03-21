@@ -1,9 +1,9 @@
 package io.github.ultimateboomer.textweaks.config;
 
 import io.github.ultimateboomer.textweaks.TexTweaks;
-import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
-import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
-import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
+import me.shedaniel.autoconfig.ConfigData;
+import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
 import java.util.Arrays;
 import java.util.List;
