@@ -64,8 +64,7 @@ public class TexTweaksConfig implements ConfigData {
 		@ConfigEntry.Gui.Tooltip
 		public List<String> targetAtlases = Arrays.asList("minecraft:textures/atlas/blocks.png");
 
-		@ConfigEntry.Gui.Tooltip
-		public boolean onlyMipmapTarget = false;
+		public boolean onlyMipmapTarget = true;
 
 		@ConfigEntry.Gui.Tooltip
 		public boolean overrideMipmapGeneration = false;
