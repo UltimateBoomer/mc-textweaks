@@ -11,7 +11,8 @@
     "SpriteAtlasTextureMixin",
     "TextureStitcherMixin",
     "TextureUtilMixin",
-    "MipmapHelperMixin"
+    "MipmapHelperMixin",
+    "MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1

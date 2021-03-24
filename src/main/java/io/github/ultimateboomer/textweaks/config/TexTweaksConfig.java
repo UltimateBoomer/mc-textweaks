@@ -87,6 +87,9 @@ public class TexTweaksConfig implements ConfigData {
 		@ConfigEntry.Gui.Tooltip(count = 2)
 		public boolean parallelPreScaling = true;
 
+		@ConfigEntry.Gui.Tooltip(count = 2)
+		public boolean disableResourcePackReloadOnError = false;
+
 		@ConfigEntry.Gui.Tooltip
 		public boolean replaceAllImages = false;
 	}

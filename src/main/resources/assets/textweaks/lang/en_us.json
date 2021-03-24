@@ -57,6 +57,9 @@
 	"text.autoconfig.textweaks.option.other.parallelPreScaling": "Concurrent Pre-scaling",
 	"text.autoconfig.textweaks.option.other.parallelPreScaling.@Tooltip[0]": "Use Minecraft's executor to parallelize processing",
 	"text.autoconfig.textweaks.option.other.parallelPreScaling.@Tooltip[1]": "Can marginally improve scaling performance",
+	"text.autoconfig.textweaks.option.other.disableResourcePackReloadOnError": "Don't reload resources on loading error",
+	"text.autoconfig.textweaks.option.other.disableResourcePackReloadOnError.@Tooltip[0]": "Will also prevent Minecraft from removing all resource packs",
+	"text.autoconfig.textweaks.option.other.disableResourcePackReloadOnError.@Tooltip[1]": "Note: the game will probably crash instead",
 	"text.autoconfig.textweaks.option.other.replaceAllImages": "Secret Option",
 	"text.autoconfig.textweaks.option.other.replaceAllImages.@Tooltip": "???",
 
