@@ -84,6 +84,8 @@ public class TexTweaksConfig implements ConfigData {
 	}
 	
 	public static class Other implements ConfigData {
+		public boolean disableNotice = false;
+
 		@ConfigEntry.Gui.Tooltip(count = 2)
 		public boolean parallelPreScaling = true;
 

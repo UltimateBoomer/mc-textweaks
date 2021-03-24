@@ -12,7 +12,8 @@
     "TextureStitcherMixin",
     "TextureUtilMixin",
     "MipmapHelperMixin",
-    "MinecraftClientMixin"
+    "MinecraftClientMixin",
+    "MinecraftClientGameMixin"
   ],
   "injectors": {
     "defaultRequire": 1

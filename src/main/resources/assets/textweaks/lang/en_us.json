@@ -1,5 +1,10 @@
 {
-	"text.autoconfig.textweaks.title": "TexTweaks - \u00a7lReload textures (F3+T) to apply effects\u00a7r",
+	"textweaks.title": "[§2TexTweaks§r]",
+	"textweaks.notice.disable": "You can disable this message in the config.",
+	"textweaks.notice.textureScaling.upscale": "§7Texture upscaling is enabled! §cAll lower res textures are upscaled to §e%s§cx",
+	"textweaks.notice.textureScaling.downscale": "§7Texture downscaling is enabled! §higher res textures are downscaled to §e%s§cx",
+
+	"text.autoconfig.textweaks.title": "TexTweaks - §lReload textures (F3+T) to apply effects§r",
 
 	"text.autoconfig.textweaks.option.textureScaling": "Texture Scaling",
 	"text.autoconfig.textweaks.option.textureScaling.@Tooltip": "Upscale/downscale textures to set size",
@@ -53,7 +58,8 @@
 	"text.autoconfig.textweaks.option.lodBias.value.@Tooltip[2]": ">0: Less detail, less aliasing",
 	
 	"text.autoconfig.textweaks.option.other": "Other",
-	"text.autoconfig.textweaks.option.other.@Tooltip": "Other options",
+	"text.autoconfig.textweaks.option.other.@Tooltip": "Other/Debug options",
+	"text.autoconfig.textweaks.option.disableNotice": "Disable Notice Message",
 	"text.autoconfig.textweaks.option.other.parallelPreScaling": "Concurrent Pre-scaling",
 	"text.autoconfig.textweaks.option.other.parallelPreScaling.@Tooltip[0]": "Use Minecraft's executor to parallelize processing",
 	"text.autoconfig.textweaks.option.other.parallelPreScaling.@Tooltip[1]": "Can marginally improve scaling performance",
