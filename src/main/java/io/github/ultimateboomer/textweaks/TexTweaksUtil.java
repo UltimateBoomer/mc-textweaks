@@ -26,23 +26,23 @@ public abstract class TexTweaksUtil extends RenderPhase {
         return nativeImages;
     }
 
-    public static RenderLayer getEntityCutout(Identifier texture) {
-        RenderLayer.MultiPhaseParameters multiPhaseParameters = RenderLayer.MultiPhaseParameters.builder()
-                .texture(new RenderPhase.Texture(texture, false, true))
-                .transparency(NO_TRANSPARENCY).diffuseLighting(ENABLE_DIFFUSE_LIGHTING)
-                .alpha(ONE_TENTH_ALPHA).lightmap(ENABLE_LIGHTMAP)
-                .overlay(ENABLE_OVERLAY_COLOR).build(true);
-        return RenderLayer.of("entity_cutout", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL,
-                7, 256, true, false, multiPhaseParameters);
-    }
-
-    public static RenderLayer getEntityCutoutNoCull(Identifier texture) {
-        RenderLayer.MultiPhaseParameters multiPhaseParameters = RenderLayer.MultiPhaseParameters.builder()
-                .texture(new RenderPhase.Texture(texture, false, false))
-                .transparency(NO_TRANSPARENCY).diffuseLighting(ENABLE_DIFFUSE_LIGHTING)
-                .alpha(ONE_TENTH_ALPHA).cull(DISABLE_CULLING).lightmap(ENABLE_LIGHTMAP)
-                .overlay(ENABLE_OVERLAY_COLOR).build(true);
-        return RenderLayer.of("entity_cutout_no_cull", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL,
-                7, 256, true, false, multiPhaseParameters);
-    }
+//    public static RenderLayer getEntityCutout(Identifier texture) {
+//        RenderLayer.MultiPhaseParameters multiPhaseParameters = RenderLayer.MultiPhaseParameters.builder()
+//                .texture(new RenderPhase.Texture(texture, false, true))
+//                .transparency(NO_TRANSPARENCY).diffuseLighting(ENABLE_DIFFUSE_LIGHTING)
+//                .alpha(ONE_TENTH_ALPHA).lightmap(ENABLE_LIGHTMAP)
+//                .overlay(ENABLE_OVERLAY_COLOR).build(true);
+//        return RenderLayer.of("entity_cutout", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL,
+//                7, 256, true, false, multiPhaseParameters);
+//    }
+//
+//    public static RenderLayer getEntityCutoutNoCull(Identifier texture) {
+//        RenderLayer.MultiPhaseParameters multiPhaseParameters = RenderLayer.MultiPhaseParameters.builder()
+//                .texture(new RenderPhase.Texture(texture, false, false))
+//                .transparency(NO_TRANSPARENCY).diffuseLighting(ENABLE_DIFFUSE_LIGHTING)
+//                .alpha(ONE_TENTH_ALPHA).cull(DISABLE_CULLING).lightmap(ENABLE_LIGHTMAP)
+//                .overlay(ENABLE_OVERLAY_COLOR).build(true);
+//        return RenderLayer.of("entity_cutout_no_cull", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL,
+//                7, 256, true, false, multiPhaseParameters);
+//    }
 }

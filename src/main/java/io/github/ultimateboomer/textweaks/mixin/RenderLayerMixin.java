@@ -13,16 +13,16 @@ public abstract class RenderLayerMixin extends RenderPhase {
         super(name, beginAction, endAction);
     }
 
-    @Redirect(method = "<clinit>", at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/client/render/RenderLayer$MultiPhaseParameters$Builder;texture(Lnet/minecraft/client/render/RenderPhase$Texture;)Lnet/minecraft/client/render/RenderLayer$MultiPhaseParameters$Builder;"))
-    private static RenderLayer.MultiPhaseParameters.Builder onClInit(RenderLayer.MultiPhaseParameters.Builder builder,
-                                                              RenderPhase.Texture texture) {
-        TexTweaks.initConfig();
-
-        if (texture.equals(BLOCK_ATLAS_TEXTURE) && TexTweaks.config.betterMipmaps.mipmapBlockCutouts) {
-            return builder.texture(MIPMAP_BLOCK_ATLAS_TEXTURE);
-        } else {
-            return builder.texture(texture);
-        }
-    }
+//    @Redirect(method = "<clinit>", at = @At(value = "INVOKE",
+//            target = "Lnet/minecraft/client/render/RenderLayer$MultiPhaseParameters$Builder;texture(Lnet/minecraft/client/render/RenderPhase$Texture;)Lnet/minecraft/client/render/RenderLayer$MultiPhaseParameters$Builder;"))
+//    private static RenderLayer.MultiPhaseParameters.Builder onClInit(RenderLayer.MultiPhaseParameters.Builder builder,
+//                                                              RenderPhase.Texture texture) {
+//        TexTweaks.initConfig();
+//
+//        if (texture.equals(BLOCK_ATLAS_TEXTURE) && TexTweaks.config.betterMipmaps.mipmapBlockCutouts) {
+//            return builder.texture(MIPMAP_BLOCK_ATLAS_TEXTURE);
+//        } else {
+//            return builder.texture(texture);
+//        }
+//    }
 }

@@ -25,8 +25,8 @@ public abstract class MinecraftClientMixin {
 
     @Shadow @Nullable public ClientWorld world;
 
-    @Inject(method = "method_31186", at = @At("HEAD"), cancellable = true)
-    private void onResourcePackLoadError(Throwable throwable, Text text, CallbackInfo ci) {
+    @Inject(method = "onResourceReloadFailure", at = @At("HEAD"), cancellable = true)
+    private void onResourceReloadFailure(Throwable throwable, Text text, CallbackInfo ci) {
         if (TexTweaks.config.other.disableResourcePackReloadOnError) {
             TexTweaks.LOGGER.info("Caught error loading resourcepacks", throwable);
 
@@ -37,7 +37,7 @@ public abstract class MinecraftClientMixin {
         }
     }
 
-    @Inject(method = "reloadResources", at = @At("RETURN"))
+    @Inject(method = "reloadResources(Z)Ljava/util/concurrent/CompletableFuture;", at = @At("RETURN"))
     private void onReloadResources(CallbackInfoReturnable<CompletableFuture<Void>> ci) {
         if (this.world != null) {
             TexTweaks.displayNotice((MinecraftClient) (Object) this);

@@ -16,13 +16,13 @@ import java.util.function.Function;
 
 @Mixin(ChestBlockEntityRenderer.class)
 public class ChestBlockEntityRendererMixin {
-    @Redirect(method = "render(Lnet/minecraft/block/entity/BlockEntity;FLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;II)V",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/SpriteIdentifier;getVertexConsumer(Lnet/minecraft/client/render/VertexConsumerProvider;Ljava/util/function/Function;)Lnet/minecraft/client/render/VertexConsumer;"))
-    private VertexConsumer onRender(SpriteIdentifier spriteIdentifier, VertexConsumerProvider vertexConsumers, Function<Identifier, RenderLayer> layerFactory) {
-        if (TexTweaks.config.betterMipmaps.mipmapChests) {
-            return spriteIdentifier.getVertexConsumer(vertexConsumers, TexTweaksUtil::getEntityCutout);
-        } else {
-            return spriteIdentifier.getVertexConsumer(vertexConsumers, layerFactory);
-        }
-    }
+//    @Redirect(method = "render(Lnet/minecraft/block/entity/BlockEntity;FLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;II)V",
+//            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/SpriteIdentifier;getVertexConsumer(Lnet/minecraft/client/render/VertexConsumerProvider;Ljava/util/function/Function;)Lnet/minecraft/client/render/VertexConsumer;"))
+//    private VertexConsumer onRender(SpriteIdentifier spriteIdentifier, VertexConsumerProvider vertexConsumers, Function<Identifier, RenderLayer> layerFactory) {
+//        if (TexTweaks.config.betterMipmaps.mipmapChests) {
+//            return spriteIdentifier.getVertexConsumer(vertexConsumers, TexTweaksUtil::getEntityCutout);
+//        } else {
+//            return spriteIdentifier.getVertexConsumer(vertexConsumers, layerFactory);
+//        }
+//    }
 }
