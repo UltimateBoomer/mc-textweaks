@@ -1,8 +1,8 @@
 {
 	"textweaks.title": "[§2TexTweaks§r]",
-	"textweaks.notice.disable": "You can disable this message in the config.",
-	"textweaks.notice.textureScaling.upscale": "§7Texture upscaling is enabled! §cAll lower res textures are upscaled to §e%s§cx",
-	"textweaks.notice.textureScaling.downscale": "§7Texture downscaling is enabled! §higher res textures are downscaled to §e%s§cx",
+	"textweaks.notice.disable": "§7You can disable this message in the config.",
+	"textweaks.notice.textureScaling.upscale": "§7Texture upscaling is enabled! All lower res textures are upscaled to §e%s§7x",
+	"textweaks.notice.textureScaling.downscale": "§7Texture downscaling is enabled! Higher res textures are downscaled to §e%s§7x",
 
 	"text.autoconfig.textweaks.title": "TexTweaks - §lReload textures (F3+T) to apply effects§r",
 
