@@ -24,7 +24,7 @@ public class MipmapHelperMixin {
                 label51:
                 for(k = 0; k < image.getWidth(); ++k) {
                     for(int j = 0; j < image.getHeight(); ++j) {
-                        if (image.getPixelColor(k, j) >> 24 == 0) {
+                        if (image.getColor(k, j) >> 24 == 0) {
                             bl = true;
                             break label51;
                         }
