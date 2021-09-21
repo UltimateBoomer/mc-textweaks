@@ -1,11 +1,7 @@
 package io.github.ultimateboomer.textweaks;
 
-import io.github.ultimateboomer.niapi.NativeImageUtil;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderPhase;
-import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.texture.NativeImage;
-import net.minecraft.util.Identifier;
 
 public abstract class TexTweaksUtil extends RenderPhase {
     public TexTweaksUtil(String name, Runnable beginAction, Runnable endAction) {

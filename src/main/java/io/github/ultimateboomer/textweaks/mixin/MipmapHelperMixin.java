@@ -1,6 +1,6 @@
 package io.github.ultimateboomer.textweaks.mixin;
 
-import io.github.ultimateboomer.niapi.NativeImageUtil;
+import io.github.ultimateboomer.textweaks.NativeImageUtil;
 import io.github.ultimateboomer.textweaks.TexTweaks;
 import net.minecraft.client.texture.MipmapHelper;
 import net.minecraft.client.texture.NativeImage;

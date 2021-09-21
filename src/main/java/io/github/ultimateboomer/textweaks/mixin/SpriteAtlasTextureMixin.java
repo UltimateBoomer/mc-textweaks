@@ -1,6 +1,6 @@
 package io.github.ultimateboomer.textweaks.mixin;
 
-import io.github.ultimateboomer.niapi.NativeImageUtil;
+import io.github.ultimateboomer.textweaks.NativeImageUtil;
 import io.github.ultimateboomer.textweaks.TexTweaks;
 import io.github.ultimateboomer.textweaks.config.ScalingAlgorithm;
 import net.minecraft.client.resource.metadata.AnimationResourceMetadata;
