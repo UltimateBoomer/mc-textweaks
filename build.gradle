@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.8-SNAPSHOT'
+	id 'fabric-loom' version '0.9-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -10,15 +10,14 @@ archivesBaseName = project.mod_name
 version = project.minecraft_version + "-" + project.mod_version
 group = project.maven_group
 
-minecraft {
-	accessWidener "src/main/resources/${project.mod_name}.accesswidener"
+loom {
+	accessWidenerPath = file("src/main/resources/${project.mod_name}.accesswidener")
 }
 
 repositories {
 	maven { url 'https://jitpack.io' }
 	maven { url "https://maven.terraformersmc.com" }
 	maven { url "https://maven.shedaniel.me/" }
-	mavenLocal()
 }
 
 dependencies {
@@ -63,13 +62,8 @@ tasks.withType(JavaCompile).configureEach {
 	// If Javadoc is generated, this must be specified in that task too.
 	it.options.encoding = "UTF-8"
 
-	// The Minecraft launcher currently installs Java 8 for users, so your mod probably wants to target Java 8 too
-	// JDK 9 introduced a new way of specifying this that will make sure no newer classes or methods are used.
-	// We'll use that if it's available, but otherwise we'll use the older option.
-	def targetVersion = 8
-	if (JavaVersion.current().isJava9Compatible()) {
-		 it.options.release = targetVersion
-	}
+	// Minecraft 1.17 (21w19a) upwards uses Java 16.
+	it.options.release = 16
 }
 
 java {
@@ -99,9 +93,11 @@ publishing {
 		}
 	}
 
-	// Select the repositories you want to publish to
-	// To publish to maven local, no extra repositories are necessary. Just use the task `publishToMavenLocal`.
+	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
 	repositories {
-		// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+		// Add repositories to publish to here.
+		// Notice: This block does NOT have the same function as the block in the top level.
+		// The repositories here will be used for publishing your artifact, not for
+		// retrieving dependencies.
 	}
 }
