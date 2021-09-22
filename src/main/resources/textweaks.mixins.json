@@ -6,14 +6,15 @@
   "plugin": "io.github.ultimateboomer.textweaks.TexTweaksMixinPlugin",
   "client": [
     "ChestBlockEntityRendererMixin",
+    "MinecraftClientGameMixin",
+    "MinecraftClientMixin",
+    "MipmapHelperMixin",
     "ReloadableResourceManagerImplMixin",
     "RenderLayerMixin",
     "SpriteAtlasTextureMixin",
     "TextureStitcherMixin",
     "TextureUtilMixin",
-    "MipmapHelperMixin",
-    "MinecraftClientMixin",
-    "MinecraftClientGameMixin"
+    "MissingSpriteMixin"
   ],
   "injectors": {
     "defaultRequire": 1
