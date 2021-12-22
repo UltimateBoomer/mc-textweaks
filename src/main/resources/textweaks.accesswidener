@@ -1,6 +1,6 @@
 accessWidener v1 named
 
-accessible method net/minecraft/client/texture/NativeImage$GLFormat getGlConstant ()I
+accessible method net/minecraft/client/texture/NativeImage$InternalFormat getValue ()I
 accessible method net/minecraft/client/texture/NativeImage checkAllocated ()V
 
 accessible field net/minecraft/client/texture/NativeImage pointer J
@@ -39,7 +39,7 @@ accessible field net/minecraft/client/texture/SpriteAtlasTexture$Data spriteIds 
 accessible field net/minecraft/client/texture/TextureStitcher mipLevel I
 mutable field net/minecraft/client/texture/TextureStitcher mipLevel I
 
-accessible field net/minecraft/client/render/RenderLayer$MultiPhaseParameters$Builder texture Lnet/minecraft/client/render/RenderPhase$Texture;
+accessible field net/minecraft/client/render/RenderLayer$MultiPhaseParameters$Builder texture Lnet/minecraft/client/render/RenderPhase$TextureBase;
 
 accessible class net/minecraft/client/texture/TextureStitcher$Holder
 

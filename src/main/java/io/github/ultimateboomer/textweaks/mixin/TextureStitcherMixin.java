@@ -15,6 +15,6 @@ public class TextureStitcherMixin {
     @Redirect(method = "add", at = @At(value = "NEW",
             target = "net/minecraft/client/texture/TextureStitcher$Holder"))
     private TextureStitcher.Holder onAdd(Sprite.Info sprite, int mipLevel) {
-        return new TextureStitcher.Holder(sprite, MathHelper.log2(Math.min(sprite.getWidth(), sprite.getHeight())));
+        return new TextureStitcher.Holder(sprite, MathHelper.floorLog2(Math.min(sprite.getWidth(), sprite.getHeight())));
     }
 }
