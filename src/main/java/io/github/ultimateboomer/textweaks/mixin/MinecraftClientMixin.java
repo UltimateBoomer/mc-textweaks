@@ -6,7 +6,6 @@ import net.minecraft.client.toast.SystemToast;
 import net.minecraft.client.toast.ToastManager;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,7 +30,7 @@ public abstract class MinecraftClientMixin {
             TexTweaks.LOGGER.info("Caught error loading resourcepacks", throwable);
 
             SystemToast.show(this.getToastManager(), SystemToast.Type.PACK_LOAD_FAILURE,
-                    new TranslatableText("resourcePack.load_fail"), text);
+                    Text.translatable("resourcePack.load_fail"), text);
 
             ci.cancel();
         }

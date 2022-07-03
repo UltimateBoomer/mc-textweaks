@@ -25,9 +25,8 @@ public class ReloadableResourceManagerImplMixin {
 
         if (TexTweaks.config.other.replaceAllImages) {
             Resource res = MinecraftClient.getInstance().getResourceManager().getResource(new Identifier(
-                    "textweaks", "textures/replaceall.png"));
+                    "textweaks", "textures/replaceall.png")).get();
             TexTweaks.replaceAllImage = NativeImage.read(res.getInputStream());
-            res.close();
         }
     }
 }
